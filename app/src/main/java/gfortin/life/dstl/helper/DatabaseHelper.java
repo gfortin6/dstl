@@ -12,6 +12,7 @@ import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 
+import gfortin.life.dstl.R;
 import gfortin.life.dstl.model.Category;
 import gfortin.life.dstl.model.Character;
 import gfortin.life.dstl.model.Item;
@@ -32,6 +33,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 
     public DatabaseHelper(Context context) {
+        //super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
     }
@@ -39,8 +41,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public static DatabaseHelper getInstance(Context context) {
         synchronized (DatabaseHelper.class) {
             if (DatabaseHelper.helper == null) {
-                DatabaseHelper.helper = OpenHelperManager.getHelper(context,
-                        DatabaseHelper.class);
+                //DatabaseHelper.helper = OpenHelperManager.getHelper(context, DatabaseHelper.class);
+                DatabaseHelper.helper = new DatabaseHelper(context);
             }
         }
         return DatabaseHelper.helper;
@@ -49,7 +51,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase database,
                          ConnectionSource connectionSource) {
-        Log.i("onCReate", "OnCreate");
+        Log.e("DatabaseHelper", "onCreate");
         try {
             Class<?>[] modelClasses = ApplicationData.getModelclasses();
 
@@ -67,14 +69,26 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase database,
                           ConnectionSource connectionSource, int oldVersion, int newVersion) {
-        if (oldVersion < 8) {
+        Log.e("DatabaseHelper", "onUpgrade");
+
+        try {
+            Class<?>[] modelClasses = ApplicationData.getModelclasses();
+
+            for (int i = 0; i < modelClasses.length; i++) {
+                TableUtils.dropTable(connectionSource, modelClasses[i], true);
+            }
+            onCreate(database,connectionSource);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        /*if (oldVersion < 8) {
             try {
                 TableUtils.clearTable(getConnectionSource(), Item.class);
                 PopulateDb.populateItem(this);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-        }
+        }*/
     }
 
     /*Item*/

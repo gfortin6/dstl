@@ -7,12 +7,18 @@ import android.graphics.Color;
 import android.view.Gravity;
 import android.widget.TextView;
 
+import gfortin.life.dstl.model.Category;
+import gfortin.life.dstl.model.Character;
 import gfortin.life.dstl.model.Item;
+import gfortin.life.dstl.model.Location;
 
 public class ApplicationData {
 
 	private static final Class<?>[] modelClasses = new Class[] {
+			Category.class,
 			Item.class,
+			Character.class,
+			Location.class
 	};
 
 	/**
