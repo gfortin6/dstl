@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import gfortin.life.dstl.R;
 import gfortin.life.dstl.model.Category;
 import gfortin.life.dstl.model.Character;
+import gfortin.life.dstl.model.Game;
 import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.model.Location;
 import gfortin.life.dstl.util.ApplicationData;
@@ -30,6 +31,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private Dao<Character, String> characterDao = null;
     private Dao<Location, String> locationDao = null;
     private Dao<Category, String> categoryDao = null;
+    private Dao<Game, String> gameDao = null;
 
 
     public DatabaseHelper(Context context) {
@@ -41,8 +43,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public static DatabaseHelper getInstance(Context context) {
         synchronized (DatabaseHelper.class) {
             if (DatabaseHelper.helper == null) {
-                //DatabaseHelper.helper = OpenHelperManager.getHelper(context, DatabaseHelper.class);
-                DatabaseHelper.helper = new DatabaseHelper(context);
+                DatabaseHelper.helper = OpenHelperManager.getHelper(context, DatabaseHelper.class);
+               // DatabaseHelper.helper = new DatabaseHelper(context);
             }
         }
         return DatabaseHelper.helper;
@@ -51,13 +53,14 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase database,
                          ConnectionSource connectionSource) {
-        Log.e("DatabaseHelper", "onCreate");
+        Log.d("DatabaseHelper", "onCreate");
         try {
             Class<?>[] modelClasses = ApplicationData.getModelclasses();
 
             for (int i = 0; i < modelClasses.length; i++) {
                 TableUtils.createTable(connectionSource, modelClasses[i]);
             }
+            PopulateDb.populateGame(this);
             PopulateDb.populateItem(this);
 
         } catch (SQLException e) {
@@ -69,7 +72,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase database,
                           ConnectionSource connectionSource, int oldVersion, int newVersion) {
-        Log.e("DatabaseHelper", "onUpgrade");
+        Log.d("DatabaseHelper", "onUpgrade");
 
         try {
             Class<?>[] modelClasses = ApplicationData.getModelclasses();
@@ -104,17 +107,23 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return categoryDao;
     }
 
-    /*Item*/
+    /*Character*/
     public Dao<Character, String> getCharacterDao() throws SQLException {
         if (characterDao == null)
             characterDao = getDao(Character.class);
         return characterDao;
     }
-    /*Category*/
+    /*Location*/
     public Dao<Location, String> getLocationDao() throws SQLException {
         if (locationDao == null)
             locationDao = getDao(Location.class);
         return locationDao;
+    }
+    /*Game*/
+    public Dao<Game, String> getGamenDao() throws SQLException {
+        if (gameDao == null)
+            gameDao = getDao(Game.class);
+        return gameDao;
     }
 
     /**

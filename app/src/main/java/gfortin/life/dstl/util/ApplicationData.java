@@ -9,16 +9,22 @@ import android.widget.TextView;
 
 import gfortin.life.dstl.model.Category;
 import gfortin.life.dstl.model.Character;
+import gfortin.life.dstl.model.Game;
 import gfortin.life.dstl.model.Item;
+import gfortin.life.dstl.model.ItemTrophy;
 import gfortin.life.dstl.model.Location;
+import gfortin.life.dstl.model.Trophy;
 
 public class ApplicationData {
 
 	private static final Class<?>[] modelClasses = new Class[] {
+			Game.class,
 			Category.class,
 			Item.class,
 			Character.class,
-			Location.class
+			Location.class,
+			Trophy.class,
+			ItemTrophy.class
 	};
 
 	/**

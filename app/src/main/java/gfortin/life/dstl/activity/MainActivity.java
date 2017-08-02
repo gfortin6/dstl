@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,9 +14,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import java.util.List;
 
 import gfortin.life.dstl.R;
 import gfortin.life.dstl.helper.DatabaseHelper;
+import gfortin.life.dstl.model.Game;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -25,7 +30,16 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Context context = getApplicationContext();
+
         dbHelper = DatabaseHelper.getInstance(getApplicationContext());
+        List<Game> games;
+        try {
+            games = dbHelper.getGamenDao().queryForAll();
+            Log.d("GAMES",games.toString());
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -48,6 +62,12 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        TextView tv = (TextView)findViewById(R.id.textViewDS);
+        Log.d("GAME",games.get(0).getName());
+        String text = getResources().getString(getResources().getIdentifier(games.get(0).getName(),"string", getPackageName()));
+        tv.setText(text);
     }
 
     @Override

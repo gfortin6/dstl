@@ -1,6 +1,7 @@
 package gfortin.life.dstl.model;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 
 import gfortin.life.dstl.util.UuidUtil;
 
@@ -11,11 +12,11 @@ import gfortin.life.dstl.util.UuidUtil;
 public class Item {
     @DatabaseField(id = true)
     private String id = UuidUtil.nextUuid();
-    @DatabaseField
+    @DatabaseField(foreign=true, foreignAutoRefresh=true)
     private Character character;
-    @DatabaseField
+    @DatabaseField(foreign=true, foreignAutoRefresh=true)
     private Location location;
-    @DatabaseField
+    @DatabaseField(foreign=true, foreignAutoRefresh=true)
     private Category category;
 
 

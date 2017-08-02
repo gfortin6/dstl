@@ -6,10 +6,27 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import gfortin.life.dstl.model.Game;
+
 public class PopulateDb {
+
+    public static void populateGame(DatabaseHelper dbHelper) {
+        try {
+            Game game = new Game();
+            game.setName("dark_souls");
+          //  Game game = new Game("Dark souls", null, null);
+            dbHelper.getGamenDao().create(game);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
 
 
