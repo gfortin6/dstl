@@ -9,20 +9,13 @@ import gfortin.life.dstl.util.UuidUtil;
  */
 
 public class Location {
-    @DatabaseField(id=true)
-    private String id = UuidUtil.nextUuid();
+    @DatabaseField(id=true, generatedId = true)
+    private int id;
 
 
     public Location() {
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 }
 
 

@@ -1,5 +1,5 @@
 #
-# generated on 2017/08/01 06:52:34
+# generated on 2017/08/03 09:35:32
 #
 # --table-start--
 dataClass=gfortin.life.dstl.model.Game
@@ -13,21 +13,30 @@ id=true
 fieldName=name
 # --field-end--
 # --field-start--
-fieldName=front_cover_path
+fieldName=frontCoverPath
 # --field-end--
 # --field-start--
-fieldName=back_cover_path
+fieldName=backCoverPath
+# --field-end--
+# --field-start--
+fieldName=releaseDate
 # --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
 # --table-start--
-dataClass=gfortin.life.dstl.model.Category
-tableName=category
+dataClass=gfortin.life.dstl.model.Type
+tableName=type
 # --table-fields-start--
 # --field-start--
 fieldName=id
 id=true
+# --field-end--
+# --field-start--
+fieldName=name
+# --field-end--
+# --field-start--
+fieldName=description
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -39,6 +48,12 @@ tableName=item
 # --field-start--
 fieldName=id
 id=true
+# --field-end--
+# --field-start--
+fieldName=name
+# --field-end--
+# --field-start--
+fieldName=description
 # --field-end--
 # --field-start--
 fieldName=character
@@ -53,10 +68,34 @@ foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2
 # --field-end--
 # --field-start--
-fieldName=category
+fieldName=itemProperty
 foreign=true
 foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2
+# --field-end--
+# --field-start--
+fieldName=type
+foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
+# --field-end--
+# --field-start--
+fieldName=subtype
+foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
+# --field-end--
+# --field-start--
+fieldName=attackType
+foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
+# --field-end--
+# --field-start--
+fieldName=enchantable
+# --field-end--
+# --field-start--
+fieldName=special
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -68,6 +107,12 @@ tableName=character
 # --field-start--
 fieldName=id
 id=true
+# --field-end--
+# --field-start--
+fieldName=game
+foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -97,6 +142,21 @@ foreign=true
 foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2
 # --field-end--
+# --field-start--
+fieldName=name
+# --field-end--
+# --field-start--
+fieldName=description
+# --field-end--
+# --field-start--
+fieldName=value
+# --field-end--
+# --field-start--
+fieldName=path
+# --field-end--
+# --field-start--
+fieldName=acquired
+# --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
@@ -119,6 +179,142 @@ fieldName=trophy
 foreign=true
 foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gfortin.life.dstl.model.CharacterItemJonction
+tableName=characteritem
+# --table-fields-start--
+# --field-start--
+fieldName=id
+id=true
+# --field-end--
+# --field-start--
+fieldName=character
+foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
+# --field-end--
+# --field-start--
+fieldName=item
+foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gfortin.life.dstl.model.ItemProperty
+tableName=itemproperties
+# --table-fields-start--
+# --field-start--
+fieldName=id
+id=true
+# --field-end--
+# --field-start--
+fieldName=cost
+# --field-end--
+# --field-start--
+fieldName=durability
+# --field-end--
+# --field-start--
+fieldName=weight
+# --field-end--
+# --field-start--
+fieldName=physical_protection
+# --field-end--
+# --field-start--
+fieldName=strike_protection
+# --field-end--
+# --field-start--
+fieldName=slash_protection
+# --field-end--
+# --field-start--
+fieldName=thrust_protection
+# --field-end--
+# --field-start--
+fieldName=magical_protection
+# --field-end--
+# --field-start--
+fieldName=fire_protection
+# --field-end--
+# --field-start--
+fieldName=lightning_protection
+# --field-end--
+# --field-start--
+fieldName=poise_protection
+# --field-end--
+# --field-start--
+fieldName=bleed_protection
+# --field-end--
+# --field-start--
+fieldName=poison_protection
+# --field-end--
+# --field-start--
+fieldName=curse_protection
+# --field-end--
+# --field-start--
+fieldName=nb_uses
+# --field-end--
+# --field-start--
+fieldName=nb_slots
+# --field-end--
+# --field-start--
+fieldName=lvl_int
+# --field-end--
+# --field-start--
+fieldName=lvl_faith
+# --field-end--
+# --field-start--
+fieldName=strength_requirement
+# --field-end--
+# --field-start--
+fieldName=strength_bonus
+# --field-end--
+# --field-start--
+fieldName=dexterity_requirement
+# --field-end--
+# --field-start--
+fieldName=dexterity_bonus
+# --field-end--
+# --field-start--
+fieldName=intelligence_requirement
+# --field-end--
+# --field-start--
+fieldName=intelligence_bonus
+# --field-end--
+# --field-start--
+fieldName=faith_requirement
+# --field-end--
+# --field-start--
+fieldName=faith_bonus
+# --field-end--
+# --field-start--
+fieldName=physical_dmg
+# --field-end--
+# --field-start--
+fieldName=magical_dmg
+# --field-end--
+# --field-start--
+fieldName=fire_dmg
+# --field-end--
+# --field-start--
+fieldName=lightning_dmg
+# --field-end--
+# --field-start--
+fieldName=stability
+# --field-end--
+# --field-start--
+fieldName=effect_lvl1
+# --field-end--
+# --field-start--
+fieldName=effect_lvl2
+# --field-end--
+# --field-start--
+fieldName=effect_lvl3
 # --field-end--
 # --table-fields-end--
 # --table-end--

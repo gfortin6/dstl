@@ -1,5 +1,6 @@
 package gfortin.life.dstl.activity;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,11 +17,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.j256.ormlite.table.TableUtils;
+
 import java.util.List;
+import java.util.Locale;
 
 import gfortin.life.dstl.R;
 import gfortin.life.dstl.helper.DatabaseHelper;
+import gfortin.life.dstl.helper.LanguageHelper;
 import gfortin.life.dstl.model.Game;
+import gfortin.life.dstl.model.Item;
+import gfortin.life.dstl.model.Type;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -33,9 +40,13 @@ public class MainActivity extends AppCompatActivity
 
         dbHelper = DatabaseHelper.getInstance(getApplicationContext());
         List<Game> games;
+        List<Item> items;
         try {
             games = dbHelper.getGamenDao().queryForAll();
-            Log.d("GAMES",games.toString());
+            Log.d("MainActivity",games.toString());
+            items = dbHelper.getItemDao().queryForAll();
+            Log.d("MainActivity",items.toString());
+
         }catch (Exception e){
             throw new RuntimeException(e);
         }
@@ -97,8 +108,16 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
-        }
-
+        }/*else if (id == R.id.action_locale) {
+            CharSequence lang = item.getTitle();
+            if(lang == getResources().getText(R.string.fr)){
+                LanguageHelper.changeLocale(getResources(),"fr");
+             //   ClipData.Item actionLocale = (ClipData.Item) findViewById(R.id.action_locale);
+                //actionLocale.set
+            }else {
+                LanguageHelper.changeLocale(getResources(), "en");
+            }
+        }*/
         return super.onOptionsItemSelected(item);
     }
 

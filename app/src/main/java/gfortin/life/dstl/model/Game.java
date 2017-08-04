@@ -2,39 +2,41 @@ package gfortin.life.dstl.model;
 
 import com.j256.ormlite.field.DatabaseField;
 
-import gfortin.life.dstl.util.UuidUtil;
+import java.util.Date;
 
 /**
  * Created by guillaume on 30/07/17.
  */
 
 public class Game {
-    @DatabaseField(id = true)
-    private String id = UuidUtil.nextUuid();
+    @DatabaseField(id=true, generatedId = true)
+    private int id;
     @DatabaseField
     private String name;
     @DatabaseField
-    private String front_cover_path;
+    private String frontCoverPath;
     @DatabaseField
-    private String back_cover_path;
+    private String backCoverPath;
+    @DatabaseField
+    private Date releaseDate;
 
 
     public Game() {
     }
 
-
-
-    public Game(String name, String front_cover_path, String back_cover_path) {
+    public Game(int id, String name, String frontCoverPath, String back_cover_path, Date releaseDate) {
+        this.id = id;
         this.name = name;
-        this.front_cover_path = front_cover_path;
-        this.back_cover_path = back_cover_path;
+        this.frontCoverPath = frontCoverPath;
+        this.backCoverPath = back_cover_path;
+        this.releaseDate = releaseDate;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -46,29 +48,38 @@ public class Game {
         this.name = name;
     }
 
-    public String getFront_cover_path() {
-        return front_cover_path;
+    public String getFrontCoverPath() {
+        return frontCoverPath;
     }
 
-    public void setFront_cover_path(String front_cover_path) {
-        this.front_cover_path = front_cover_path;
+    public void setFrontCoverPath(String frontCoverPath) {
+        this.frontCoverPath = frontCoverPath;
     }
 
-    public String getBack_cover_path() {
-        return back_cover_path;
+    public String getBackCoverPath() {
+        return backCoverPath;
     }
 
-    public void setBack_cover_path(String back_cover_path) {
-        this.back_cover_path = back_cover_path;
+    public void setBackCoverPath(String backCoverPath) {
+        this.backCoverPath = backCoverPath;
+    }
+
+    public Date getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     @Override
     public String toString() {
         return "Game{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", name='" + name + '\'' +
-                ", front_cover_path='" + front_cover_path + '\'' +
-                ", back_cover_path='" + back_cover_path + '\'' +
+                ", frontCoverPath='" + frontCoverPath + '\'' +
+                ", backCoverPath='" + backCoverPath + '\'' +
+                ", releaseDate=" + releaseDate +
                 '}';
     }
 }

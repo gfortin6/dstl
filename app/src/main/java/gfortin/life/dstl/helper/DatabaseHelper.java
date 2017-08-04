@@ -13,25 +13,36 @@ import com.j256.ormlite.table.TableUtils;
 import java.sql.SQLException;
 
 import gfortin.life.dstl.R;
-import gfortin.life.dstl.model.Category;
 import gfortin.life.dstl.model.Character;
+import gfortin.life.dstl.model.CharacterItemJonction;
 import gfortin.life.dstl.model.Game;
 import gfortin.life.dstl.model.Item;
+import gfortin.life.dstl.model.ItemProperty;
+import gfortin.life.dstl.model.ItemPropertyJunction;
+import gfortin.life.dstl.model.ItemTrophy;
 import gfortin.life.dstl.model.Location;
+import gfortin.life.dstl.model.Trophy;
+import gfortin.life.dstl.model.Type;
 import gfortin.life.dstl.util.ApplicationData;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "dstl.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 4;
     private static DatabaseHelper helper = null;
     private static boolean loadDatabaseFromCacheFile = false;
     private Context context;
-    private Dao<Item, String> itemDao = null;
-    private Dao<Character, String> characterDao = null;
-    private Dao<Location, String> locationDao = null;
-    private Dao<Category, String> categoryDao = null;
-    private Dao<Game, String> gameDao = null;
+
+    private Dao<Character, Integer> characterDao = null;
+    private Dao<CharacterItemJonction, Integer> characterItemDao = null;
+    private Dao<Game, Integer> gameDao = null;
+    private Dao<Item, Integer> itemDao = null;
+    private Dao<ItemProperty, Integer> itemPropertiesDao = null;
+    private Dao<Location, Integer> locationDao = null;
+    private Dao<Trophy, Integer> trophyDao = null;
+    private Dao<Type, Integer> typeDao = null;
+    private Dao<ItemTrophy, Integer> itemTrophyDao = null;
+    private Dao<ItemPropertyJunction, Integer> itemPropertyJonctionJDao = null;
 
 
     public DatabaseHelper(Context context) {
@@ -44,7 +55,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         synchronized (DatabaseHelper.class) {
             if (DatabaseHelper.helper == null) {
                 DatabaseHelper.helper = OpenHelperManager.getHelper(context, DatabaseHelper.class);
-               // DatabaseHelper.helper = new DatabaseHelper(context);
             }
         }
         return DatabaseHelper.helper;
@@ -53,15 +63,15 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase database,
                          ConnectionSource connectionSource) {
-        Log.d("DatabaseHelper", "onCreate");
         try {
             Class<?>[] modelClasses = ApplicationData.getModelclasses();
 
             for (int i = 0; i < modelClasses.length; i++) {
                 TableUtils.createTable(connectionSource, modelClasses[i]);
             }
+            PopulateDb.populateType(this);
             PopulateDb.populateGame(this);
-            PopulateDb.populateItem(this);
+            PopulateDb.populateSorceries(this);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -72,59 +82,90 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase database,
                           ConnectionSource connectionSource, int oldVersion, int newVersion) {
-        Log.d("DatabaseHelper", "onUpgrade");
-
+        Log.d("onUpgrade", "onUpgrade");
         try {
             Class<?>[] modelClasses = ApplicationData.getModelclasses();
 
             for (int i = 0; i < modelClasses.length; i++) {
                 TableUtils.dropTable(connectionSource, modelClasses[i], true);
             }
-            onCreate(database,connectionSource);
+            onCreate(database, connectionSource);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        /*if (oldVersion < 8) {
-            try {
-                TableUtils.clearTable(getConnectionSource(), Item.class);
-                PopulateDb.populateItem(this);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }*/
-    }
-
-    /*Item*/
-    public Dao<Item, String> getItemDao() throws SQLException {
-        if (itemDao == null)
-            itemDao = getDao(Item.class);
-        return itemDao;
-    }
-    /*Category*/
-    public Dao<Category, String> getCategoryDao() throws SQLException {
-        if (categoryDao == null)
-            categoryDao = getDao(Category.class);
-        return categoryDao;
     }
 
     /*Character*/
-    public Dao<Character, String> getCharacterDao() throws SQLException {
+    public Dao<Character, Integer> getCharacterDao() throws SQLException {
         if (characterDao == null)
             characterDao = getDao(Character.class);
         return characterDao;
     }
-    /*Location*/
-    public Dao<Location, String> getLocationDao() throws SQLException {
-        if (locationDao == null)
-            locationDao = getDao(Location.class);
-        return locationDao;
+
+    /*CharacterItemJonction*/
+    public Dao<CharacterItemJonction, Integer> getCharacterItemDao() throws SQLException {
+        if (characterItemDao == null)
+            characterItemDao = getDao(CharacterItemJonction.class);
+        return characterItemDao;
     }
+
     /*Game*/
-    public Dao<Game, String> getGamenDao() throws SQLException {
+    public Dao<Game, Integer> getGamenDao() throws SQLException {
         if (gameDao == null)
             gameDao = getDao(Game.class);
         return gameDao;
     }
+
+    /*Item*/
+    public Dao<Item, Integer> getItemDao() throws SQLException {
+        if (itemDao == null)
+            itemDao = getDao(Item.class);
+        return itemDao;
+    }
+
+    /*ItemProperty*/
+    public Dao<ItemProperty, Integer> getItemPropertiesDao() throws SQLException {
+        if (itemPropertiesDao == null)
+            itemPropertiesDao = getDao(ItemProperty.class);
+        return itemPropertiesDao;
+    }
+
+    /*Location*/
+    public Dao<Location, Integer> getLocationDao() throws SQLException {
+        if (locationDao == null)
+            locationDao = getDao(Location.class);
+        return locationDao;
+    }
+
+    /*Trophy*/
+    public Dao<Trophy, Integer> getTrophyDao() throws SQLException {
+        if (trophyDao == null)
+            trophyDao = getDao(Trophy.class);
+        return trophyDao;
+    }
+
+    /*Type*/
+    public Dao<Type, Integer> getTypeDao() throws SQLException {
+        if (typeDao == null)
+            typeDao = getDao(Type.class);
+        return typeDao;
+    }
+
+    /*Type*/
+    public Dao<ItemTrophy, Integer> getItemTrophyDao() throws SQLException {
+        if (itemTrophyDao == null)
+            itemTrophyDao = getDao(ItemTrophy.class);
+        return itemTrophyDao;
+    }
+
+    /*Type*/
+    public Dao<ItemPropertyJunction, Integer> getItemPropertyJonctionDao() throws SQLException {
+        if (itemPropertyJonctionJDao == null)
+            itemPropertyJonctionJDao = getDao(ItemPropertyJunction.class);
+        return itemPropertyJonctionJDao;
+    }
+
+
 
     /**
      * @return the context
