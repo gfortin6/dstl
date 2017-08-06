@@ -7,7 +7,7 @@ import com.j256.ormlite.field.DatabaseField;
  */
 
 public class ItemPropertyJunction {
-    @DatabaseField(id=true, generatedId = true)
+    @DatabaseField(generatedId = true)
     private int id;
     @DatabaseField(foreign=true, foreignAutoRefresh=true)
     private Item item;

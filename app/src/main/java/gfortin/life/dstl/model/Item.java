@@ -7,7 +7,7 @@ import com.j256.ormlite.field.DatabaseField;
  */
 
 public class Item {
-    @DatabaseField(id=true, generatedId = true)
+    @DatabaseField(generatedId = true)
     private int id;
     @DatabaseField
     private String name;
@@ -18,12 +18,10 @@ public class Item {
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private Location location;
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
-    private ItemProperty itemProperty;
-    @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private Type type;
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private Type subtype;
-    @DatabaseField(foreign = true, foreignAutoRefresh = true)
+    @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "attack_type_id")
     private Type attackType;
     @DatabaseField
     private boolean enchantable;
@@ -75,14 +73,6 @@ public class Item {
         this.location = location;
     }
 
-    public ItemProperty getItemProperty() {
-        return itemProperty;
-    }
-
-    public void setItemProperty(ItemProperty itemProperty) {
-        this.itemProperty = itemProperty;
-    }
-
     public Type getType() {
         return type;
     }
@@ -131,7 +121,6 @@ public class Item {
                 ", description='" + description + '\'' +
                 ", character=" + character +
                 ", location=" + location +
-                ", itemProperty=" + itemProperty +
                 ", type=" + type +
                 ", subtype=" + subtype +
                 ", attackType=" + attackType +

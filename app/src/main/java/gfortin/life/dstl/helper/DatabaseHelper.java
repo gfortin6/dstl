@@ -37,12 +37,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private Dao<CharacterItemJonction, Integer> characterItemDao = null;
     private Dao<Game, Integer> gameDao = null;
     private Dao<Item, Integer> itemDao = null;
-    private Dao<ItemProperty, Integer> itemPropertiesDao = null;
+    private Dao<ItemProperty, Integer> itemPropertyDao = null;
     private Dao<Location, Integer> locationDao = null;
     private Dao<Trophy, Integer> trophyDao = null;
     private Dao<Type, Integer> typeDao = null;
     private Dao<ItemTrophy, Integer> itemTrophyDao = null;
-    private Dao<ItemPropertyJunction, Integer> itemPropertyJonctionJDao = null;
+    private Dao<ItemPropertyJunction, Integer> itemPropertyJunctionJDao = null;
 
 
     public DatabaseHelper(Context context) {
@@ -124,10 +124,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     /*ItemProperty*/
-    public Dao<ItemProperty, Integer> getItemPropertiesDao() throws SQLException {
-        if (itemPropertiesDao == null)
-            itemPropertiesDao = getDao(ItemProperty.class);
-        return itemPropertiesDao;
+    public Dao<ItemProperty, Integer> getItemPropertyDao() throws SQLException {
+        if (itemPropertyDao == null)
+            itemPropertyDao = getDao(ItemProperty.class);
+        return itemPropertyDao;
     }
 
     /*Location*/
@@ -160,9 +160,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     /*Type*/
     public Dao<ItemPropertyJunction, Integer> getItemPropertyJonctionDao() throws SQLException {
-        if (itemPropertyJonctionJDao == null)
-            itemPropertyJonctionJDao = getDao(ItemPropertyJunction.class);
-        return itemPropertyJonctionJDao;
+        if (itemPropertyJunctionJDao == null)
+            itemPropertyJunctionJDao = getDao(ItemPropertyJunction.class);
+        return itemPropertyJunctionJDao;
     }
 
 

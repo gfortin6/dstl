@@ -9,4 +9,7 @@
     <string name="dark_souls">Ame sombre</string>
     <string name="fr">Français</string>
     <string name="en">English</string>
+    <string name="trophies">Trophés</string>
+    <string name="spells">Sorts</string>
+    <string name="miracles">Miracles</string>
 </resources>

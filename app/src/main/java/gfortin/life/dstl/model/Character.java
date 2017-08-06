@@ -9,7 +9,7 @@ import gfortin.life.dstl.util.UuidUtil;
  */
 
 public class Character {
-    @DatabaseField(id=true)
+    @DatabaseField(generatedId=true)
     private int id;
     @DatabaseField(foreign=true, foreignAutoRefresh=true)
     private Game game;

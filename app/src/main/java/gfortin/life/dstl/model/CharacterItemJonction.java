@@ -9,7 +9,7 @@ import gfortin.life.dstl.util.UuidUtil;
  */
 
 public class CharacterItemJonction {
-    @DatabaseField(id=true, generatedId = true)
+    @DatabaseField(generatedId = true)
     private int id;
     @DatabaseField(foreign=true, foreignAutoRefresh=true)
     private Character character;

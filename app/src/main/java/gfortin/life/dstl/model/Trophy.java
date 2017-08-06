@@ -9,7 +9,7 @@ import gfortin.life.dstl.util.UuidUtil;
  * Created by guillaume on 30/07/17.
  */
 public class Trophy {
-    @DatabaseField(id=true, generatedId = true)
+    @DatabaseField(generatedId = true)
     private int id;
     @DatabaseField(foreign=true, foreignAutoRefresh=true)
     private Game game;

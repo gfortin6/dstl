@@ -1,56 +1,46 @@
 package gfortin.life.dstl.activity;
 
-import android.content.ClipData;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
-import com.j256.ormlite.table.TableUtils;
-
 import java.util.List;
-import java.util.Locale;
 
 import gfortin.life.dstl.R;
+import gfortin.life.dstl.fragments.ItemFragment;
+import gfortin.life.dstl.fragments.MiracleFragment;
+import gfortin.life.dstl.fragments.SorceriesFragment;
 import gfortin.life.dstl.helper.DatabaseHelper;
-import gfortin.life.dstl.helper.LanguageHelper;
 import gfortin.life.dstl.model.Game;
 import gfortin.life.dstl.model.Item;
-import gfortin.life.dstl.model.Type;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements SorceriesFragment.OnFragmentInteractionListener, MiracleFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener {
 
     DatabaseHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Context context = getApplicationContext();
 
         dbHelper = DatabaseHelper.getInstance(getApplicationContext());
-        List<Game> games;
-        List<Item> items;
-        try {
-            games = dbHelper.getGamenDao().queryForAll();
-            Log.d("MainActivity",games.toString());
-            items = dbHelper.getItemDao().queryForAll();
-            Log.d("MainActivity",items.toString());
-
-        }catch (Exception e){
-            throw new RuntimeException(e);
-        }
-
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -74,11 +64,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-        TextView tv = (TextView)findViewById(R.id.textViewDS);
-        Log.d("GAME",games.get(0).getName());
-        String text = getResources().getString(getResources().getIdentifier(games.get(0).getName(),"string", getPackageName()));
-        tv.setText(text);
     }
 
     @Override
@@ -125,24 +110,40 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view Item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        Fragment fragment = null;
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        switch (item.getItemId()) {
+            case R.id.nav_sorceries:
+                fragment = new SorceriesFragment();
+                fragmentTransaction.replace(R.id.flList, fragment);
+                break;
+            case R.id.nav_miracles:
+                fragment = new MiracleFragment();
+                fragmentTransaction.replace(R.id.flList, fragment);
+                break;
+            case R.id.nav_pyromancies:
+                break;
+            case R.id.nav_trophies:
+                break;
+            case R.id.nav_armors:
+                break;
+            case R.id.nav_weapons:
+                break;
+            case R.id.nav_rings:
+                break;
         }
+        fragmentTransaction.commit();
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    public void onFragmentInteraction(Uri uri){
+        //you can leave it empty
+    }
+
 }

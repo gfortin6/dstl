@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
-    </group>
-
-    <item android:title="Communicate">
+    <item
+        android:id="@+id/nav_trophies"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="@string/trophies" />
+    <item android:title="@string/spells">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_sorceries"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="@string/sorceries" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_miracles"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="@string/miracles" />
+            <item
+                android:id="@+id/nav_pyromancies"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/pyromancies" />
         </menu>
     </item>
-
+    <item
+        android:id="@+id/nav_weapons"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="@string/weapons" />
+    <item
+        android:id="@+id/nav_armors"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="@string/armors" />
+    <item
+        android:id="@+id/nav_rings"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="@string/rings" />
 </menu>

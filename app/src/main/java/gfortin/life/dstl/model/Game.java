@@ -9,15 +9,15 @@ import java.util.Date;
  */
 
 public class Game {
-    @DatabaseField(id=true, generatedId = true)
+    @DatabaseField(generatedId = true)
     private int id;
     @DatabaseField
     private String name;
-    @DatabaseField
+    @DatabaseField (columnName = "front_cover_path")
     private String frontCoverPath;
-    @DatabaseField
+    @DatabaseField (columnName = "back_cover_path")
     private String backCoverPath;
-    @DatabaseField
+    @DatabaseField (columnName = "release_date")
     private Date releaseDate;
 
 

@@ -92,7 +92,7 @@ public class PopulateDb {
                 ItemProperty nbUsesProp = new ItemProperty();
                 nbUsesProp.setKey("nbUses");
                 nbUsesProp.setValue(nbUses);
-                dbHelper.getItemPropertiesDao().create(nbUsesProp);
+                dbHelper.getItemPropertyDao().create(nbUsesProp);
 
                 ItemPropertyJunction nbUsesPropJunction = new ItemPropertyJunction();
                 nbUsesPropJunction.setItem(item);
@@ -103,7 +103,7 @@ public class PopulateDb {
                 ItemProperty nbSlotsProp = new ItemProperty();
                 nbSlotsProp.setKey("nbSlots");
                 nbSlotsProp.setValue(nbSlots);
-                dbHelper.getItemPropertiesDao().create(nbSlotsProp);
+                dbHelper.getItemPropertyDao().create(nbSlotsProp);
 
                 ItemPropertyJunction nbSlotsPropJunction = new ItemPropertyJunction();
                 nbUsesPropJunction.setItem(item);
@@ -115,7 +115,7 @@ public class PopulateDb {
                 ItemProperty lvlIntProp = new ItemProperty();
                 lvlIntProp.setKey("lvlInt");
                 lvlIntProp.setValue(lvlInt);
-                dbHelper.getItemPropertiesDao().create(lvlIntProp);
+                dbHelper.getItemPropertyDao().create(lvlIntProp);
 
                 ItemPropertyJunction lvlIntPropJunction = new ItemPropertyJunction();
                 nbUsesPropJunction.setItem(item);
