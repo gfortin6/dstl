@@ -6,10 +6,14 @@
 
     <string name="action_settings">Paramètres</string>
 
-    <string name="dark_souls">Ame sombre</string>
     <string name="fr">Français</string>
     <string name="en">English</string>
     <string name="trophies">Trophés</string>
     <string name="spells">Sorts</string>
     <string name="miracles">Miracles</string>
+    <string name="great_magic_weapon">Grande arme magique</string>
+    <string name="weapons">Armes</string>
+    <string name="sorceries">Sorcelleries</string>
+    <string name="rings">Anneaux</string>
+    <string name="pyromancies">Pyromancies</string>
 </resources>

@@ -6,12 +6,11 @@
 
     <string name="action_settings">Settings</string>
 
-    <string name="dark_souls">Dark souls</string>
+    <string name="dark_souls" translatable="false">Dark souls</string>
     <string name="en">English</string>
     <string name="fr">Français</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="trophies">Trophies</string>
     <string name="spells">Spells</string>
     <string name="miracles">Miracles</string>
@@ -20,4 +19,6 @@
     <string name="weapons">Weapons</string>
     <string name="rings">Rings</string>
     <string name="armors">Armors</string>
+    <string name="great_magic_weapon">Great magic weapon</string>
+    <string name="soul_arrow">Soul arrow</string>
 </resources>

@@ -1,20 +1,29 @@
-package gfortin.life.dstl.fragments;
+package gfortin.life.dstl.fragment;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import gfortin.life.dstl.R;
-import gfortin.life.dstl.fragments.dummy.DummyContent;
-import gfortin.life.dstl.fragments.dummy.DummyContent.DummyItem;
 
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.QueryBuilder;
+
+import java.sql.SQLException;
 import java.util.List;
+
+import gfortin.life.dstl.R;
+import gfortin.life.dstl.constants.TypeConstant;
+import gfortin.life.dstl.helper.DatabaseHelper;
+import gfortin.life.dstl.model.Item;
+import gfortin.life.dstl.util.ApplicationData;
 
 /**
  * A fragment representing a list of Items.
@@ -29,6 +38,8 @@ public class ItemFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    private DatabaseHelper dbHelper;
+    private Dao<Item, Integer> itemDao;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -50,7 +61,12 @@ public class ItemFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        dbHelper = DatabaseHelper.getInstance(getContext());
+        try {
+            itemDao = dbHelper.getItemDao();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
@@ -60,7 +76,6 @@ public class ItemFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
-
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -70,22 +85,41 @@ public class ItemFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            try {
+                List<Item> items = null;
+                switch (getArguments().getInt("itemId")){
+                    case R.id.nav_sorceries:
+                        items = DatabaseHelper.getInstance(getContext()).getItemDao().queryForEq("subType_id", TypeConstant.Sorceries);
+                        break;
+                    case R.id.nav_miracles:
+                        items = DatabaseHelper.getInstance(getContext()).getItemDao().queryForEq("subType_id", TypeConstant.Miracles);
+                        break;
+                    case R.id.nav_pyromancies:
+                        items = DatabaseHelper.getInstance(getContext()).getItemDao().queryForEq("subType_id", TypeConstant.Pyromancies);
+                        break;
+                    case R.id.nav_trophies:
+                        items = DatabaseHelper.getInstance(getContext()).getItemDao().queryForEq("type_id", TypeConstant.Trophy);
+                        break;
+                    case R.id.nav_armors:
+                        items = DatabaseHelper.getInstance(getContext()).getItemDao().queryForEq("type_id", TypeConstant.Armors);
+                        break;
+                    case R.id.nav_weapons:
+                        items = DatabaseHelper.getInstance(getContext()).getItemDao().queryForEq("type_id", TypeConstant.Weapons);
+                        break;
+                    case R.id.nav_rings:
+                        items = DatabaseHelper.getInstance(getContext()).getItemDao().queryForEq("type_id", TypeConstant.Rings);
+                        break;
+                }
+
+                recyclerView.setAdapter(new ItemRecyclerViewAdapter(items, mListener, getContext()));
+            }catch(Exception e){
+                throw new RuntimeException();
+            }
         }
         return view;
     }
 
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
-        }
-    }
 
     @Override
     public void onDetach() {
@@ -105,6 +139,6 @@ public class ItemFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Item item);
     }
 }

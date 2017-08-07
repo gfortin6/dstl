@@ -1,30 +1,36 @@
-package gfortin.life.dstl.fragments;
+package gfortin.life.dstl.fragment;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
 
 import gfortin.life.dstl.R;
-import gfortin.life.dstl.fragments.ItemFragment.OnListFragmentInteractionListener;
-import gfortin.life.dstl.fragments.dummy.DummyContent.DummyItem;
+import gfortin.life.dstl.fragment.ItemFragment.OnListFragmentInteractionListener;
+import gfortin.life.dstl.holder.ViewHolder;
+import gfortin.life.dstl.model.Item;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link Item} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
+public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<Item> mValues;
     private final OnListFragmentInteractionListener mListener;
+    private final Context context;
 
-    public MyItemRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public ItemRecyclerViewAdapter(List<Item> items, OnListFragmentInteractionListener listener, Context context) {
         mValues = items;
         mListener = listener;
+        this.context = context;
     }
 
     @Override
@@ -37,8 +43,12 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mItemNameView.setText( context.getResources().getIdentifier(mValues.get(position).getName(),"string",context.getPackageName()));
+        Integer imgResource = context.getResources().getIdentifier(mValues.get(position).getName(),"drawable",context.getPackageName());
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), imgResource);
+        Bitmap resized = Bitmap.createScaledBitmap(bitmap, 125, 125, true);
+        holder.mItemImageView.setImageBitmap(resized);
+                //setText(mValues.get(position).getDescription());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,22 +67,5 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         return mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
 
-        public ViewHolder(View view) {
-            super(view);
-            mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
-        }
-    }
 }

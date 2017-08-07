@@ -5,11 +5,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
+import gfortin.life.dstl.constants.TypeConstant;
 import gfortin.life.dstl.model.Game;
 import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.model.ItemProperty;
 import gfortin.life.dstl.model.ItemPropertyJunction;
-import gfortin.life.dstl.model.ItemTrophy;
+import gfortin.life.dstl.model.ItemTrophyJunction;
 import gfortin.life.dstl.model.Type;
 
 public class PopulateDb {
@@ -71,8 +72,6 @@ public class PopulateDb {
                 String lvlInt = stTok.nextToken();
                 String description = stTok.nextToken();
                 String attackTypeId = stTok.nextToken();
-                String type = stTok.nextToken();
-                String subType = stTok.nextToken();
                 String trophyId = stTok.nextToken();
 
                 Item item = new Item();
@@ -80,14 +79,14 @@ public class PopulateDb {
                 item.setName(name);
                 item.setDescription(description);
                 item.setAttackType(dbHelper.getTypeDao().queryForId(Integer.parseInt(attackTypeId)));
-                item.setType(dbHelper.getTypeDao().queryForId(Integer.parseInt(type)));
-                item.setSubtype(dbHelper.getTypeDao().queryForId(Integer.parseInt(subType)));
+                item.setType(dbHelper.getTypeDao().queryForId(TypeConstant.Spells));
+                item.setSubtype(dbHelper.getTypeDao().queryForId(TypeConstant.Sorceries));
                 dbHelper.getItemDao().create(item);
 
 
-                ItemTrophy itemTrophy = new ItemTrophy();
-                itemTrophy.setItem(item);
-                itemTrophy.setTrophy(dbHelper.getTrophyDao().queryForId(Integer.parseInt(trophyId)));
+                ItemTrophyJunction itemTrophyJunction = new ItemTrophyJunction();
+                itemTrophyJunction.setItem(item);
+                itemTrophyJunction.setTrophy(dbHelper.getTrophyDao().queryForId(Integer.parseInt(trophyId)));
 
                 ItemProperty nbUsesProp = new ItemProperty();
                 nbUsesProp.setKey("nbUses");

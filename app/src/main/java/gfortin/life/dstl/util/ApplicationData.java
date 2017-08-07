@@ -8,11 +8,12 @@ import android.view.Gravity;
 import android.widget.TextView;
 
 import gfortin.life.dstl.model.Character;
-import gfortin.life.dstl.model.CharacterItemJonction;
+import gfortin.life.dstl.model.CharacterItemJunction;
 import gfortin.life.dstl.model.Game;
 import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.model.ItemProperty;
-import gfortin.life.dstl.model.ItemTrophy;
+import gfortin.life.dstl.model.ItemPropertyJunction;
+import gfortin.life.dstl.model.ItemTrophyJunction;
 import gfortin.life.dstl.model.Location;
 import gfortin.life.dstl.model.Trophy;
 import gfortin.life.dstl.model.Type;
@@ -26,9 +27,11 @@ public class ApplicationData {
 			Character.class,
 			Location.class,
 			Trophy.class,
-			ItemTrophy.class,
-			CharacterItemJonction.class,
-			ItemProperty.class
+			ItemTrophyJunction.class,
+			CharacterItemJunction.class,
+			ItemProperty.class,
+			ItemPropertyJunction.class,
+
 	};
 
 	/**

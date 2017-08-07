@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="gfortin.life.dstl.fragments.SorceriesFragment"
+    tools:context="gfortin.life.dstl.fragment.SorceriesFragment"
     android:background="@color/colorPrimary">
 
     <!-- TODO: Update blank fragment layout -->

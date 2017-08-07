@@ -14,12 +14,12 @@ import java.sql.SQLException;
 
 import gfortin.life.dstl.R;
 import gfortin.life.dstl.model.Character;
-import gfortin.life.dstl.model.CharacterItemJonction;
+import gfortin.life.dstl.model.CharacterItemJunction;
 import gfortin.life.dstl.model.Game;
 import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.model.ItemProperty;
 import gfortin.life.dstl.model.ItemPropertyJunction;
-import gfortin.life.dstl.model.ItemTrophy;
+import gfortin.life.dstl.model.ItemTrophyJunction;
 import gfortin.life.dstl.model.Location;
 import gfortin.life.dstl.model.Trophy;
 import gfortin.life.dstl.model.Type;
@@ -28,20 +28,20 @@ import gfortin.life.dstl.util.ApplicationData;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "dstl.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 3;
     private static DatabaseHelper helper = null;
     private static boolean loadDatabaseFromCacheFile = false;
     private Context context;
 
     private Dao<Character, Integer> characterDao = null;
-    private Dao<CharacterItemJonction, Integer> characterItemDao = null;
+    private Dao<CharacterItemJunction, Integer> characterItemDao = null;
     private Dao<Game, Integer> gameDao = null;
     private Dao<Item, Integer> itemDao = null;
     private Dao<ItemProperty, Integer> itemPropertyDao = null;
     private Dao<Location, Integer> locationDao = null;
     private Dao<Trophy, Integer> trophyDao = null;
     private Dao<Type, Integer> typeDao = null;
-    private Dao<ItemTrophy, Integer> itemTrophyDao = null;
+    private Dao<ItemTrophyJunction, Integer> itemTrophyDao = null;
     private Dao<ItemPropertyJunction, Integer> itemPropertyJunctionJDao = null;
 
 
@@ -102,10 +102,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return characterDao;
     }
 
-    /*CharacterItemJonction*/
-    public Dao<CharacterItemJonction, Integer> getCharacterItemDao() throws SQLException {
+    /*CharacterItemJunction*/
+    public Dao<CharacterItemJunction, Integer> getCharacterItemDao() throws SQLException {
         if (characterItemDao == null)
-            characterItemDao = getDao(CharacterItemJonction.class);
+            characterItemDao = getDao(CharacterItemJunction.class);
         return characterItemDao;
     }
 
@@ -152,9 +152,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     /*Type*/
-    public Dao<ItemTrophy, Integer> getItemTrophyDao() throws SQLException {
+    public Dao<ItemTrophyJunction, Integer> getItemTrophyDao() throws SQLException {
         if (itemTrophyDao == null)
-            itemTrophyDao = getDao(ItemTrophy.class);
+            itemTrophyDao = getDao(ItemTrophyJunction.class);
         return itemTrophyDao;
     }
 

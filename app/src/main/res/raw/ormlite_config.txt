@@ -1,5 +1,5 @@
 #
-# generated on 2017/08/05 10:09:48
+# generated on 2017/08/06 04:59:15
 #
 # --table-start--
 dataClass=gfortin.life.dstl.model.Game
@@ -159,8 +159,8 @@ fieldName=acquired
 # --table-end--
 #################################
 # --table-start--
-dataClass=gfortin.life.dstl.model.ItemTrophy
-tableName=itemtrophy
+dataClass=gfortin.life.dstl.model.ItemTrophyJunction
+tableName=itemtrophyjunction
 # --table-fields-start--
 # --field-start--
 fieldName=id
@@ -182,8 +182,8 @@ maxForeignAutoRefreshLevel=2
 # --table-end--
 #################################
 # --table-start--
-dataClass=gfortin.life.dstl.model.CharacterItemJonction
-tableName=characteritemjonction
+dataClass=gfortin.life.dstl.model.CharacterItemJunction
+tableName=characteritemjunction
 # --table-fields-start--
 # --field-start--
 fieldName=id
@@ -217,6 +217,29 @@ fieldName=key
 # --field-end--
 # --field-start--
 fieldName=value
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gfortin.life.dstl.model.ItemPropertyJunction
+tableName=itempropertyjunction
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=item
+foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
+# --field-end--
+# --field-start--
+fieldName=itemProperty
+foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
 # --field-end--
 # --table-fields-end--
 # --table-end--
