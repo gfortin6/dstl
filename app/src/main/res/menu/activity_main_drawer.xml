@@ -5,22 +5,22 @@
         android:id="@+id/nav_trophies"
         android:icon="@drawable/ic_menu_camera"
         android:title="@string/trophies" />
-    <item android:title="@string/spells">
-        <menu>
-            <item
-                android:id="@+id/nav_sorceries"
-                android:icon="@drawable/ic_menu_share"
-                android:title="@string/sorceries" />
-            <item
-                android:id="@+id/nav_miracles"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/miracles" />
-            <item
-                android:id="@+id/nav_pyromancies"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/pyromancies" />
-        </menu>
-    </item>
+    <item
+        android:id="@+id/nav_all_spells"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="@string/all_spells" />
+    <item
+        android:id="@+id/nav_sorceries"
+        android:icon="@drawable/ic_menu_share"
+        android:title="@string/sorceries" />
+    <item
+        android:id="@+id/nav_miracles"
+        android:icon="@drawable/ic_menu_send"
+        android:title="@string/miracles" />
+    <item
+        android:id="@+id/nav_pyromancies"
+        android:icon="@drawable/ic_menu_send"
+        android:title="@string/pyromancies" />
     <item
         android:id="@+id/nav_weapons"
         android:icon="@drawable/ic_menu_camera"

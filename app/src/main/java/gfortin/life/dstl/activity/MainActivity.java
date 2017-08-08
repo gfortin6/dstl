@@ -2,13 +2,11 @@ package gfortin.life.dstl.activity;
 
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,10 +18,12 @@ import android.view.View;
 
 import gfortin.life.dstl.R;
 import gfortin.life.dstl.fragment.ItemFragment;
+import gfortin.life.dstl.fragment.SorceriesFragment;
 import gfortin.life.dstl.helper.DatabaseHelper;
+import gfortin.life.dstl.util.FragmentUtil;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, SorceriesFragment.OnFragmentInteractionListener {
 
     DatabaseHelper dbHelper;
 
@@ -108,20 +108,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view Item clicks here.
-        Fragment fragment = null;
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        Bundle bundle = new Bundle();
-        bundle.putInt("itemId",item.getItemId());
-
         switch (item.getItemId()) {
             case R.id.nav_sorceries:
-                fragment = new ItemFragment();
-                fragmentTransaction.replace(R.id.main_fragment_container, fragment);
+                FragmentUtil.createNewMenuItemFragment(new ItemFragment(), getSupportFragmentManager(),"itemId", item, R.id.main_list_fragment_container);
                 break;
             case R.id.nav_miracles:
-                fragment = new ItemFragment();
-                fragmentTransaction.replace(R.id.main_fragment_container, fragment);
+                FragmentUtil.createNewMenuItemFragment(new ItemFragment(), getSupportFragmentManager(),"itemId", item, R.id.main_list_fragment_container);
                 break;
             case R.id.nav_pyromancies:
                 break;
@@ -135,15 +127,15 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
 
-        fragment.setArguments(bundle);
-        fragmentTransaction.commit();
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
 
+    @Override
+    public void onFragmentInteraction(Uri uri){
+        //you can leave it empty
+    }
 
 }

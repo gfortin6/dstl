@@ -111,7 +111,7 @@ public class ItemFragment extends Fragment {
                         break;
                 }
 
-                recyclerView.setAdapter(new ItemRecyclerViewAdapter(items, mListener, getContext()));
+                recyclerView.setAdapter(new ItemRecyclerViewAdapter(items, mListener, getContext(), getActivity().getSupportFragmentManager()));
             }catch(Exception e){
                 throw new RuntimeException();
             }
