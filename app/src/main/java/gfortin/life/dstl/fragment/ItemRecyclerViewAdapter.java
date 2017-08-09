@@ -30,13 +30,15 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
     private final OnListFragmentInteractionListener mListener;
     private final Context context;
     private FragmentManager fragmentManager;
+    private boolean isTwoPannels;
 
 
-    public ItemRecyclerViewAdapter(List<Item> items, OnListFragmentInteractionListener listener, Context context, FragmentManager fragmentManager) {
+    public ItemRecyclerViewAdapter(List<Item> items, OnListFragmentInteractionListener listener, Context context, FragmentManager fragmentManager, boolean isTwoPannels) {
         mValues = items;
         mListener = listener;
         this.context = context;
         this.fragmentManager = fragmentManager;
+        this.isTwoPannels = isTwoPannels;
     }
 
     @Override
@@ -63,7 +65,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
                 bundle.putInt("itemId", holder.mItem.getId());
                 Fragment detailFragment = null;*/
                 if (holder.mItem.getSubtype().getId() == TypeConstant.Sorceries){
-                    FragmentUtil.createNewItemFragment(new SorceriesFragment(), fragmentManager, "itemId", holder.mItem, R.id.main_fragment_container);
+                    FragmentUtil.createNewItemFragment(new SorceriesFragment(), fragmentManager, "itemId", holder.mItem, isTwoPannels);
                 //    detailFragment = new SorceriesFragment();
                 }else if (holder.mItem.getSubtype().getId() == TypeConstant.Miracles){
 

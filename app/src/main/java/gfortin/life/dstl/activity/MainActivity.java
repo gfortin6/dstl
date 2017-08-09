@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -70,7 +71,11 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0 ) {
+                getSupportFragmentManager().popBackStack();
+            }else{
+                super.onBackPressed();
+            }
         }
     }
 
@@ -110,16 +115,9 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view Item clicks here.
         switch (item.getItemId()) {
             case R.id.nav_sorceries:
-                FragmentUtil.createNewMenuItemFragment(new ItemFragment(), getSupportFragmentManager(),"itemId", item, R.id.main_list_fragment_container);
+                FragmentUtil.createNewMenuItemFragment(new ItemFragment(), getSupportFragmentManager(),"itemId", item, getResources().getBoolean(R.bool.twoPaneMode));
                 break;
             case R.id.nav_miracles:
-                FragmentUtil.createNewMenuItemFragment(new ItemFragment(), getSupportFragmentManager(),"itemId", item, R.id.main_list_fragment_container);
-                break;
-            case R.id.nav_pyromancies:
-                break;
-            case R.id.nav_trophies:
-                break;
-            case R.id.nav_armors:
                 break;
             case R.id.nav_weapons:
                 break;

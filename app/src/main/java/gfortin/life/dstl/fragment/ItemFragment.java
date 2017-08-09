@@ -111,7 +111,7 @@ public class ItemFragment extends Fragment {
                         break;
                 }
 
-                recyclerView.setAdapter(new ItemRecyclerViewAdapter(items, mListener, getContext(), getActivity().getSupportFragmentManager()));
+                recyclerView.setAdapter(new ItemRecyclerViewAdapter(items, mListener, getContext(), getActivity().getSupportFragmentManager(), getResources().getBoolean(R.bool.twoPaneMode)));
             }catch(Exception e){
                 throw new RuntimeException();
             }
