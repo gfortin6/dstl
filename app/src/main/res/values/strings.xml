@@ -8,9 +8,8 @@
 
     <string name="dark_souls" translatable="false">Dark souls</string>
     <string name="en">English</string>
-    <string name="fr">Français</string>
+    <string name="fr" translatable="false">Français</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="trophies">Trophies</string>
     <string name="spells">Spells</string>
     <string name="miracles">Miracles</string>
@@ -22,4 +21,13 @@
     <string name="great_magic_weapon">Great magic weapon</string>
     <string name="soul_arrow">Soul arrow</string>
     <string name="all_spells">All spells</string>
+    <string name="great_magic_weapon_desc">Sorcery which improves upon Magic Weapon. High magic augmentation: right weapon.  At Vinheim Dragon School, only magic swordsmen on special orders are allowed to learn this spell which grants powerful augmentation to various weapons.</string>
+    <string name="soul_arrow_desc">Elementary sorcery. Fire a soul arrow.  Soul arrows inflict magic damage, making them effective against iron armor, tough scales, and other physically resilient materials.</string>
+    <string name="acquired">Acquired</string>
+    <string name="characteristics">Characteristics</string>
+    <string name="slots_used">"Slots used : "</string>
+    <string name="spell_uses">"Spell uses : "</string>
+    <string name="type">Type :</string>
+
+
 </resources>

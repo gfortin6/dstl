@@ -9,6 +9,8 @@ import gfortin.life.dstl.util.UuidUtil;
  */
 
 public class ItemProperty {
+    public final static String ID_FIELD_NAME = "id";
+
     @DatabaseField(generatedId = true)
     private int id;
     @DatabaseField

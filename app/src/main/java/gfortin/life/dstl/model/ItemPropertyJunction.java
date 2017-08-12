@@ -9,11 +9,15 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "itempropertyjunction")
 public class ItemPropertyJunction {
+    public final static String ITEM_PROPERTY_ID_FIELD_NAME = "item_property_id";
+
+
+
     @DatabaseField(generatedId = true)
     private int id;
     @DatabaseField(foreign=true, foreignAutoRefresh=true)
     private Item item;
-    @DatabaseField(foreign=true, foreignAutoRefresh=true)
+    @DatabaseField(foreign=true, foreignAutoRefresh=true, columnName = "item_property_id")
     private ItemProperty itemProperty;
 
     public ItemPropertyJunction() {
