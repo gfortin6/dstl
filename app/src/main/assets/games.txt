@@ -1,0 +1,4 @@
+1|dark_souls_1|2011-11-04
+2|dark_souls_2|2014-03-11
+3|dark_souls_3|2016-03-24
+4|bloodborne|2015-03-24

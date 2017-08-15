@@ -15,6 +15,8 @@ import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.SelectArg;
 
+import junit.framework.Assert;
+
 import java.util.List;
 
 import gfortin.life.dstl.R;
@@ -23,6 +25,7 @@ import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.model.ItemProperty;
 import gfortin.life.dstl.model.ItemPropertyJunction;
 import java.sql.SQLException;
+
 
 
 /**
@@ -81,7 +84,8 @@ public class SorceriesFragment extends Fragment {
         try{
             int sorceryId = bundle.getInt("itemId");
             Item item = dbHelper.getItemDao().queryForId(sorceryId);
-            List<ItemProperty> itemProperties = getItemAndProperties(item);
+            List<ItemProperty> itemProperties = lookupItemPropertyForItem(item);
+            //Assert.assertEquals();
             populateFields(item, itemProperties, view);
         }catch (Exception e){
             throw new RuntimeException();
@@ -115,7 +119,7 @@ public class SorceriesFragment extends Fragment {
         mListener = null;
     }
 
-    private void populateFields(Item item, List<ItemProperty> listProperties, View view){
+    private void populateFields(Item item, List<ItemProperty> itemProperties, View view){
         TextView itemName = (TextView) view.findViewById(R.id.sorcery_name);
         itemName.setText( getResources().getIdentifier(item.getName(),"string",getActivity().getPackageName()));
 
@@ -125,13 +129,23 @@ public class SorceriesFragment extends Fragment {
         ImageView image = (ImageView) view.findViewById(R.id.sorcery_img);
         image.setImageResource(getResources().getIdentifier(item.getName(),"drawable",getActivity().getPackageName()));
 
-        TextView lvl_int = (TextView) view.findViewById(R.id.sorceries_lvl_int);
-        //lvl_int.setText(item.get);
+        TextView lvlInt = (TextView) view.findViewById(R.id.sorceries_lvl_int);
+        TextView spellUses = (TextView) view.findViewById(R.id.sorceries_spell_uses);
+        TextView slotsUsed = (TextView) view.findViewById(R.id.sorceries_slots_used);
 
-        TextView spellUses = (TextView) view.findViewById(R.id.sorceries_lvl_int);
-
-        TextView slotsUsed = (TextView) view.findViewById(R.id.sorceries_lvl_int);
-
+        for (ItemProperty itemProperty: itemProperties ) {
+            switch (itemProperty.getKey()){
+                case "nbUses":
+                    spellUses.setText(itemProperty.getValue());
+                    break;
+                case "nbSlots":
+                    slotsUsed.setText(itemProperty.getValue());
+                    break;
+                case "lvlInt":
+                    lvlInt.setText(itemProperty.getValue());
+                    break;
+            }
+        }
 
     }
 
@@ -152,7 +166,7 @@ public class SorceriesFragment extends Fragment {
 
 
 
-   private List<ItemProperty> getItemAndProperties(Item item) throws SQLException {
+   private List<ItemProperty> lookupItemPropertyForItem(Item item) throws SQLException {
         if (itemPropertyForItemQuery == null) {
             itemPropertyForItemQuery = makeItemPropertyForItemQuery();
         }
@@ -167,12 +181,12 @@ public class SorceriesFragment extends Fragment {
         propertyItemQb.selectColumns(ItemPropertyJunction.ITEM_PROPERTY_ID_FIELD_NAME);
         SelectArg userSelectArg = new SelectArg();
         // you could also just pass in user1 here
-        propertyItemQb.where().eq(ItemPropertyJunction.ITEM_PROPERTY_ID_FIELD_NAME, userSelectArg);
+        propertyItemQb.where().eq(ItemPropertyJunction.ITEM_ID_FIELD_NAME, userSelectArg);
 
         // build our outer query for Post objects
-        QueryBuilder<ItemProperty, Integer> postQb = dbHelper.getItemPropertyDao().queryBuilder();
+        QueryBuilder<ItemProperty, Integer> itemPropertyQb = dbHelper.getItemPropertyDao().queryBuilder();
         // where the id matches in the post-id from the inner query
-        postQb.where().in(ItemProperty.ID_FIELD_NAME, propertyItemQb);
-        return postQb.prepare();
+        itemPropertyQb.where().in(Item.ID_FIELD_NAME, propertyItemQb);
+        return itemPropertyQb.prepare();
     }
 }

@@ -18,7 +18,7 @@ public class Trophy {
     @DatabaseField
     private String description;
     @DatabaseField
-    private String value;
+    private int value;
     @DatabaseField
     private String path;
     @DatabaseField
@@ -27,7 +27,7 @@ public class Trophy {
     public Trophy() {
     }
 
-    public Trophy(int id, Game game, String name, String description, String value, String path, boolean acquired) {
+    public Trophy(int id, Game game, String name, String description, int value, String path, boolean acquired) {
         this.id = id;
         this.game = game;
         this.name = name;
@@ -71,11 +71,11 @@ public class Trophy {
         this.description = description;
     }
 
-    public String getValue() {
+    public int getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(int value) {
         this.value = value;
     }
 

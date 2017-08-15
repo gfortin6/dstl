@@ -7,6 +7,9 @@ import com.j256.ormlite.field.DatabaseField;
  */
 
 public class Item {
+    public final static String ID_FIELD_NAME = "id";
+
+
     @DatabaseField(generatedId = true)
     private int id;
     @DatabaseField

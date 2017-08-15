@@ -7,6 +7,7 @@ import android.util.Log;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
@@ -69,8 +70,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             for (int i = 0; i < modelClasses.length; i++) {
                 TableUtils.createTable(connectionSource, modelClasses[i]);
             }
+
             PopulateDb.populateType(this);
-            PopulateDb.populateGame(this);
+            PopulateDb.populateGames(this);
+            PopulateDb.populateTrophies(this);
             PopulateDb.populateSorceries(this);
 
         } catch (SQLException e) {
@@ -110,7 +113,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     /*Game*/
-    public Dao<Game, Integer> getGamenDao() throws SQLException {
+    public Dao<Game, Integer> getGameDao() throws SQLException {
         if (gameDao == null)
             gameDao = getDao(Game.class);
         return gameDao;
@@ -152,7 +155,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     /*Type*/
-    public Dao<ItemTrophyJunction, Integer> getItemTrophyDao() throws SQLException {
+    public Dao<ItemTrophyJunction, Integer> getItemTrophyJunctionDao() throws SQLException {
         if (itemTrophyDao == null)
             itemTrophyDao = getDao(ItemTrophyJunction.class);
         return itemTrophyDao;
@@ -173,5 +176,21 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public Context getContext() {
         return context;
     }
+
+
+/*
+    public Item selectItemWithProperties(Item item){
+        try{
+            QueryBuilder<Item, Integer> itemQb = getItemDao().queryBuilder();
+            QueryBuilder<ItemPropertyJunction, Integer> itemPropertyJunctionQb = getItemPropertyJonctionDao().queryBuilder();
+            QueryBuilder<ItemProperty, Integer> itemPropertyQb = getItemPropertyDao().queryBuilder();
+
+            itemQb.join(itemPropertyJunctionQb).where().e
+
+
+        }catch (Exception e){
+            throw new RuntimeException();
+        }
+    }*/
 
 }

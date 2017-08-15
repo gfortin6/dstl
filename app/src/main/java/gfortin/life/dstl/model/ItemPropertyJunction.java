@@ -10,6 +10,7 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "itempropertyjunction")
 public class ItemPropertyJunction {
     public final static String ITEM_PROPERTY_ID_FIELD_NAME = "item_property_id";
+    public final static String ITEM_ID_FIELD_NAME = "item_id";
 
 
 

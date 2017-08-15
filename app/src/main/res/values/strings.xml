@@ -6,8 +6,7 @@
 
     <string name="action_settings">Settings</string>
 
-    <string name="dark_souls" translatable="false">Dark souls</string>
-    <string name="en">English</string>
+    <string name="en" translatable="false">English</string>
     <string name="fr" translatable="false">Français</string>
 
     <string name="trophies">Trophies</string>
@@ -28,6 +27,12 @@
     <string name="slots_used">"Slots used : "</string>
     <string name="spell_uses">"Spell uses : "</string>
     <string name="type">Type :</string>
+    <string name="dark_souls_1" translatable="false">Dark souls</string>
+    <string name="dark_souls_2" translatable="false">Dark souls 2</string>
+    <string name="dark_souls_3" translatable="false">Dark souls 3</string>
+    <string name="bloodborne" translatable="false">Bloodborne</string>
+    <string name="Wisdom_of_a_Sage">Wisdom of a Sage</string>
+    <string name="Wisdom_of_a_Sage_desc">Acquire all sorceries.</string>
 
 
 </resources>

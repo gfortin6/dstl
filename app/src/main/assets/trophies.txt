@@ -1,1 +1,1 @@
-1|Wisdom_of_a_Sage|Acquire_all_sorceries.
+1|Wisdom_of_a_Sage|Wisdom_of_a_Sage_desc|1|silver|25

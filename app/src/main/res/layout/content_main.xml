@@ -6,9 +6,11 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="gfortin.life.dstl.activity.MainActivity"
-    tools:showIn="@layout/app_bar_main">
+    tools:showIn="@layout/app_bar_main"
+    android:background="@color/darkgrey">
 
-    <android.support.constraint.ConstraintLayout
+
+<android.support.constraint.ConstraintLayout
         android:id="@+id/main_fragment_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
