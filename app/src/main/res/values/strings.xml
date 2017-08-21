@@ -33,6 +33,10 @@
     <string name="bloodborne" translatable="false">Bloodborne</string>
     <string name="Wisdom_of_a_Sage">Wisdom of a Sage</string>
     <string name="Wisdom_of_a_Sage_desc">Acquire all sorceries.</string>
+    <string name="toDiscover">To discover</string>
+    <string name="Trophy">Trophy : </string>
+    <string name="intelligence">Intelligence</string>
+    <string name="itemList">Item list</string>
 
 
 </resources>

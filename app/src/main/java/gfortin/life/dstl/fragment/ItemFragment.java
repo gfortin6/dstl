@@ -2,28 +2,22 @@ package gfortin.life.dstl.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.stmt.QueryBuilder;
-
-import java.sql.SQLException;
 import java.util.List;
 
 import gfortin.life.dstl.R;
+import gfortin.life.dstl.adapter.ItemRecyclerViewAdapter;
 import gfortin.life.dstl.constants.TypeConstant;
 import gfortin.life.dstl.helper.DatabaseHelper;
 import gfortin.life.dstl.model.Item;
-import gfortin.life.dstl.util.ApplicationData;
 
 /**
  * A fragment representing a list of Items.
@@ -38,8 +32,6 @@ public class ItemFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-    private DatabaseHelper dbHelper;
-    private Dao<Item, Integer> itemDao;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -48,68 +40,70 @@ public class ItemFragment extends Fragment {
     public ItemFragment() {
     }
 
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        dbHelper = DatabaseHelper.getInstance(getContext());
-        try {
-            itemDao = dbHelper.getItemDao();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
         // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            try {
-                List<Item> items = null;
-                switch (getArguments().getInt("itemId")){
-                    case R.id.nav_sorceries:
-                        items = DatabaseHelper.getInstance(getContext()).getItemDao().queryForEq("subType_id", TypeConstant.Sorceries);
-                        break;
-                    case R.id.nav_miracles:
-                        items = DatabaseHelper.getInstance(getContext()).getItemDao().queryForEq("subType_id", TypeConstant.Miracles);
-                        break;
-                    case R.id.nav_pyromancies:
-                        items = DatabaseHelper.getInstance(getContext()).getItemDao().queryForEq("subType_id", TypeConstant.Pyromancies);
-                        break;
-                    case R.id.nav_trophies:
-                        items = DatabaseHelper.getInstance(getContext()).getItemDao().queryForEq("type_id", TypeConstant.Trophy);
-                        break;
-                    case R.id.nav_armors:
-                        items = DatabaseHelper.getInstance(getContext()).getItemDao().queryForEq("type_id", TypeConstant.Armors);
-                        break;
-                    case R.id.nav_weapons:
-                        items = DatabaseHelper.getInstance(getContext()).getItemDao().queryForEq("type_id", TypeConstant.Weapons);
-                        break;
-                    case R.id.nav_rings:
-                        items = DatabaseHelper.getInstance(getContext()).getItemDao().queryForEq("type_id", TypeConstant.Rings);
-                        break;
-                }
-
-                recyclerView.setAdapter(new ItemRecyclerViewAdapter(items, mListener, getContext(), getActivity().getSupportFragmentManager(), getResources().getBoolean(R.bool.twoPaneMode)));
-            }catch(Exception e){
-                throw new RuntimeException();
-            }
+        Context context = view.getContext();
+        RecyclerView listToDiscover = (RecyclerView) view.findViewById(R.id.listItemsToDiscover);
+        RecyclerView listAcquired = (RecyclerView) view.findViewById(R.id.listAcquiredItems);
+        if (mColumnCount <= 1) {
+            listToDiscover.setLayoutManager(new LinearLayoutManager(context));
+            listAcquired.setLayoutManager(new LinearLayoutManager(context));
+        } else {
+            listToDiscover.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+            listAcquired.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
+        try {
+            List<Item> itemsToDiscover = null;
+            List<Item> itemsAcquired = null;
+            switch (getArguments().getInt("itemId")) {
+                case R.id.nav_sorceries:
+                    itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("subType_id", TypeConstant.Sorceries).and().eq("isAcquired", false).query();
+                    itemsAcquired = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("subType_id", TypeConstant.Sorceries).and().eq("isAcquired", true).query();
+                    //items = DatabaseHelper.getInstance(getContext()).getItemDao().queryForEq("subType_id", TypeConstant.Sorceries);
+                    break;
+                case R.id.nav_miracles:
+                    itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("subType_id", TypeConstant.Miracles).and().eq("isAcquired", false).query();
+                    itemsAcquired = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("subType_id", TypeConstant.Miracles).and().eq("isAcquired", true).query();
+                   // itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryForEq("subType_id", TypeConstant.Miracles);
+                    break;
+                case R.id.nav_pyromancies:
+                    itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("subType_id", TypeConstant.Pyromancies).and().eq("isAcquired", false).query();
+                    itemsAcquired = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("subType_id", TypeConstant.Pyromancies).and().eq("isAcquired", true).query();
+                   // itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryForEq("subType_id", TypeConstant.Pyromancies);
+                    break;
+                case R.id.nav_trophies:
+                    itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Trophy).and().eq("isAcquired", false).query();
+                    itemsAcquired = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Trophy).and().eq("isAcquired", true).query();
+                   // itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryForEq("type_id", TypeConstant.Trophy);
+                    break;
+                case R.id.nav_armors:
+                    itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Armors).and().eq("isAcquired", false).query();
+                    itemsAcquired = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Armors).and().eq("isAcquired", true).query();
+                   // itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryForEq("type_id", TypeConstant.Armors);
+                    break;
+                case R.id.nav_weapons:
+                    itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Weapons).and().eq("isAcquired", false).query();
+                    itemsAcquired = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Weapons).and().eq("isAcquired", true).query();
+                   // itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryForEq("type_id", TypeConstant.Weapons);
+                    break;
+                case R.id.nav_rings:
+                    itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Rings).and().eq("isAcquired", false).query();
+                    itemsAcquired = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Rings).and().eq("isAcquired", true).query();
+                   // itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryForEq("type_id", TypeConstant.Rings);
+                    break;
+            }
+
+            listToDiscover.setAdapter(new ItemRecyclerViewAdapter(itemsToDiscover, mListener, getContext(), getActivity().getSupportFragmentManager(), getResources().getBoolean(R.bool.twoPaneMode)));
+            listAcquired.setAdapter(new ItemRecyclerViewAdapter(itemsAcquired, mListener, getContext(), getActivity().getSupportFragmentManager(), getResources().getBoolean(R.bool.twoPaneMode)));
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+
         return view;
     }
-
 
 
     @Override

@@ -112,7 +112,8 @@ public class PopulateDb {
 
                 Item item = new Item();
                 item.setId(id);
-                item.setName(name);
+                item.setName(name);            //Assert.assertEquals();
+
                 item.setDescription(description);
                 item.setAttackType(dbHelper.getTypeDao().queryForId(Integer.parseInt(attackTypeId)));
                 item.setType(dbHelper.getTypeDao().queryForId(TypeConstant.Spells));

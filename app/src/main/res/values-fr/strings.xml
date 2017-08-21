@@ -6,7 +6,6 @@
 
     <string name="action_settings">Paramètres</string>
 
-    <string name="fr">Français</string>
     <string name="en">English</string>
     <string name="trophies">Trophés</string>
     <string name="spells">Sorts</string>
@@ -17,4 +16,7 @@
     <string name="rings">Anneaux</string>
     <string name="pyromancies">Pyromancies</string>
     <string name="acquired">Acquis</string>
+    <string name="toDiscover">À découvrir</string>
+    <string name="itemList">Liste des items</string>
+    <string name="intelligence">Intelligence</string>
 </resources>

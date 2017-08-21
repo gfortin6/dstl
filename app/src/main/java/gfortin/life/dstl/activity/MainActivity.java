@@ -12,19 +12,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import gfortin.life.dstl.R;
 import gfortin.life.dstl.fragment.ItemFragment;
-import gfortin.life.dstl.fragment.SorceriesFragment;
+import gfortin.life.dstl.fragment.SorceryFragment;
+import gfortin.life.dstl.fragment.TrophyFragment;
 import gfortin.life.dstl.helper.DatabaseHelper;
 import gfortin.life.dstl.util.FragmentUtil;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, SorceriesFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, SorceryFragment.OnFragmentInteractionListener, TrophyFragment.OnFragmentInteractionListener {
 
     DatabaseHelper dbHelper;
 
@@ -56,12 +56,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-/*
-        Fragment fragment = new ItemFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.main_fragment_container, fragment).commit();*/
 
     }
 
@@ -115,7 +109,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view Item clicks here.
         switch (item.getItemId()) {
             case R.id.nav_sorceries:
-                FragmentUtil.createNewMenuItemFragment(new ItemFragment(), getSupportFragmentManager(),"itemId", item, getResources().getBoolean(R.bool.twoPaneMode));
+                FragmentUtil.createNewFragment(new ItemFragment(), getSupportFragmentManager(),"itemId", item.getItemId(), getResources().getBoolean(R.bool.twoPaneMode));
                 break;
             case R.id.nav_miracles:
                 break;

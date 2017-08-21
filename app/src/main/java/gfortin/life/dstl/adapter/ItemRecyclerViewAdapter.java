@@ -1,4 +1,4 @@
-package gfortin.life.dstl.fragment;
+package gfortin.life.dstl.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import gfortin.life.dstl.R;
 import gfortin.life.dstl.constants.TypeConstant;
 import gfortin.life.dstl.fragment.ItemFragment.OnListFragmentInteractionListener;
+import gfortin.life.dstl.fragment.SorceryFragment;
 import gfortin.life.dstl.holder.ViewHolder;
 import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.util.FragmentUtil;
@@ -52,10 +53,8 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mItemNameView.setText( context.getResources().getIdentifier(mValues.get(position).getName(),"string",context.getPackageName()));
-        Integer imgResource = context.getResources().getIdentifier(mValues.get(position).getName(),"drawable",context.getPackageName());
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), imgResource);
-        Bitmap resized = Bitmap.createScaledBitmap(bitmap, 125, 125, true);
-        holder.mItemImageView.setImageBitmap(resized);
+        Integer imgResource = context.getResources().getIdentifier(mValues.get(position).getName()+"_small","drawable",context.getPackageName());
+        holder.mItemImageView.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), imgResource));
                 //setText(mValues.get(position).getDescription());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -65,30 +64,13 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
                 bundle.putInt("itemId", holder.mItem.getId());
                 Fragment detailFragment = null;*/
                 if (holder.mItem.getSubtype().getId() == TypeConstant.Sorceries){
-                    FragmentUtil.createNewItemFragment(new SorceriesFragment(), fragmentManager, "itemId", holder.mItem, isTwoPannels);
-                //    detailFragment = new SorceriesFragment();
+                    FragmentUtil.createNewFragment(new SorceryFragment(), fragmentManager, "itemId", holder.mItem.getId(), isTwoPannels);
+                //    detailFragment = new SorceryFragment();
                 }else if (holder.mItem.getSubtype().getId() == TypeConstant.Miracles){
 
                 }
-               // Log.d("ITEM", holder.mItem.toString());
             }
         });
-       /* holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                @Override
-                public void onClick(View v) {
-
-                }
-
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
-            }
-        });*/
     }
 
     @Override

@@ -11,6 +11,9 @@ import gfortin.life.dstl.util.UuidUtil;
 
 @DatabaseTable(tableName = "itemtrophyjunction")
 public class ItemTrophyJunction {
+    public final static String TROPHY_ID_FIELD_NAME = "trophy_id";
+    public final static String ITEM_ID_FIELD_NAME = "item_id";
+
     @DatabaseField(generatedId = true)
     private int id;
     @DatabaseField(foreign=true, foreignAutoRefresh=true)

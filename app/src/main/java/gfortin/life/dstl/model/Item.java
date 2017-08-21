@@ -17,19 +17,13 @@ public class Item {
     @DatabaseField
     private String description;
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
-    private Character character;
-    @DatabaseField(foreign = true, foreignAutoRefresh = true)
-    private Location location;
-    @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private Type type;
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private Type subtype;
     @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "attack_type_id")
     private Type attackType;
     @DatabaseField
-    private boolean enchantable;
-    @DatabaseField
-    private boolean special;
+    private boolean isAcquired;
 
 
     public Item() {
@@ -59,23 +53,6 @@ public class Item {
         this.description = description;
     }
 
-
-    public Character getCharacter() {
-        return character;
-    }
-
-    public void setCharacter(Character character) {
-        this.character = character;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
     public Type getType() {
         return type;
     }
@@ -100,22 +77,13 @@ public class Item {
         this.attackType = attackType;
     }
 
-    public boolean isEnchantable() {
-        return enchantable;
+    public boolean isAcquired() {
+        return isAcquired;
     }
 
-    public void setEnchantable(boolean enchantable) {
-        this.enchantable = enchantable;
+    public void setAcquired(boolean acquired) {
+        isAcquired = acquired;
     }
-
-    public boolean isSpecial() {
-        return special;
-    }
-
-    public void setSpecial(boolean special) {
-        this.special = special;
-    }
-
 
     @Override
     public String toString() {
@@ -123,13 +91,9 @@ public class Item {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", character=" + character +
-                ", location=" + location +
                 ", type=" + type +
                 ", subtype=" + subtype +
                 ", attackType=" + attackType +
-                ", enchantable=" + enchantable +
-                ", special=" + special +
                 '}';
     }
 }
