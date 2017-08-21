@@ -54,6 +54,7 @@ public class ItemFragment extends Fragment {
         } else {
             listToDiscover.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             listAcquired.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+
         }
         try {
             List<Item> itemsToDiscover = null;
