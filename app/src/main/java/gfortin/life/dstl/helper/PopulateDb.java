@@ -14,7 +14,6 @@ import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.model.ItemProperty;
 import gfortin.life.dstl.model.ItemPropertyJunction;
 import gfortin.life.dstl.model.ItemTrophyJunction;
-import gfortin.life.dstl.model.Trophy;
 import gfortin.life.dstl.model.Type;
 
 public class PopulateDb {
@@ -71,7 +70,6 @@ public class PopulateDb {
                 game.setFrontCoverPath(name + "_fc");
                 game.setBackCoverPath(name + "_bc");
                 game.setReleaseDate(date);
-                //public Trophy(int id, Game game, String name, String description, String value, String path, boolean acquired) {
 
                 dbHelper.getGameDao().create(game);
 
@@ -94,9 +92,9 @@ public class PopulateDb {
             BufferedReader in = new BufferedReader(new InputStreamReader(input));
             String line;
             List<ItemTrophyJunction> lastInsertedItemTrophyJunction = dbHelper.getItemTrophyJunctionDao().query(dbHelper.getItemTrophyJunctionDao().queryBuilder().orderBy("id", false).limit(1L).prepare());
-            int index = (lastInsertedItemTrophyJunction.size() != 0) ? lastInsertedItemTrophyJunction.get(0).getId():0;
+            int index = (lastInsertedItemTrophyJunction.size() != 0) ? lastInsertedItemTrophyJunction.get(0).getId() : 0;
             while ((line = in.readLine()) != null) {
-                index ++;
+                index++;
 
 
                 StringTokenizer stTok = new StringTokenizer(line, "|");
@@ -123,7 +121,7 @@ public class PopulateDb {
 
                 ItemTrophyJunction itemTrophyJunction = new ItemTrophyJunction();
                 itemTrophyJunction.setItem(item);
-                itemTrophyJunction.setTrophy(dbHelper.getTrophyDao().queryForId(Integer.parseInt(trophyId)));
+                itemTrophyJunction.setItem2(dbHelper.getItemDao().queryForId(Integer.parseInt(trophyId)));
                 dbHelper.getItemTrophyJunctionDao().create(itemTrophyJunction);
 
 
@@ -183,20 +181,36 @@ public class PopulateDb {
                 String description = stTok.nextToken();
                 int gameId = Integer.parseInt(stTok.nextToken());
                 String trophyLevel = stTok.nextToken();
-                int trophy_value = Integer.parseInt(stTok.nextToken());
+                String trophy_value = stTok.nextToken();
 
 
-                Trophy trophy = new Trophy();
+                Item trophy = new Item();
                 trophy.setId(id);
-                trophy.setGame(dbHelper.getGameDao().queryForId(gameId));
                 trophy.setName(name);
                 trophy.setDescription(description);
                 trophy.setAcquired(false);
-                trophy.setPath(trophyLevel);
-                trophy.setValue(trophy_value);
+                trophy.setGame(dbHelper.getGameDao().queryForId(gameId));
+                dbHelper.getItemDao().create(trophy);
 
-                dbHelper.getTrophyDao().create(trophy);
+                ItemProperty trophyLvlProp = new ItemProperty();
+                trophyLvlProp.setKey("trophyLevel");
+                trophyLvlProp.setValue(trophyLevel);
+                dbHelper.getItemPropertyDao().create(trophyLvlProp);
 
+                ItemPropertyJunction trophyLvlPropJunction = new ItemPropertyJunction();
+                trophyLvlPropJunction.setItem(trophy);
+                trophyLvlPropJunction.setItemProperty(trophyLvlProp);
+                dbHelper.getItemPropertyJonctionDao().create(trophyLvlPropJunction);
+
+                ItemProperty trophyValueProp = new ItemProperty();
+                trophyValueProp.setKey("trophyValue");
+                trophyValueProp.setValue(trophy_value);
+                dbHelper.getItemPropertyDao().create(trophyValueProp);
+
+                ItemPropertyJunction trophyValuePropJunction = new ItemPropertyJunction();
+                trophyValuePropJunction.setItem(trophy);
+                trophyValuePropJunction.setItemProperty(trophyValueProp);
+                dbHelper.getItemPropertyJonctionDao().create(trophyValuePropJunction);
             }
             in.close();
 

@@ -1,5 +1,5 @@
 #
-# generated on 2017/08/19 03:54:14
+# generated on 2017/08/22 08:41:25
 #
 # --table-start--
 dataClass=gfortin.life.dstl.model.Game
@@ -80,6 +80,12 @@ maxForeignAutoRefreshLevel=2
 # --field-start--
 fieldName=isAcquired
 # --field-end--
+# --field-start--
+fieldName=game
+foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
+# --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
@@ -112,40 +118,8 @@ generatedId=true
 # --table-end--
 #################################
 # --table-start--
-dataClass=gfortin.life.dstl.model.Trophy
-tableName=trophy
-# --table-fields-start--
-# --field-start--
-fieldName=id
-generatedId=true
-# --field-end--
-# --field-start--
-fieldName=game
-foreign=true
-foreignAutoRefresh=true
-maxForeignAutoRefreshLevel=2
-# --field-end--
-# --field-start--
-fieldName=name
-# --field-end--
-# --field-start--
-fieldName=description
-# --field-end--
-# --field-start--
-fieldName=value
-# --field-end--
-# --field-start--
-fieldName=path
-# --field-end--
-# --field-start--
-fieldName=acquired
-# --field-end--
-# --table-fields-end--
-# --table-end--
-#################################
-# --table-start--
 dataClass=gfortin.life.dstl.model.ItemTrophyJunction
-tableName=itemtrophyjunction
+tableName=itemitemjunction
 # --table-fields-start--
 # --field-start--
 fieldName=id
@@ -158,7 +132,7 @@ foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2
 # --field-end--
 # --field-start--
-fieldName=trophy
+fieldName=item2
 foreign=true
 foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2

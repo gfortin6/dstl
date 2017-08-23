@@ -21,7 +21,6 @@ import gfortin.life.dstl.R;
 import gfortin.life.dstl.helper.DatabaseHelper;
 import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.model.ItemProperty;
-import gfortin.life.dstl.model.Trophy;
 import gfortin.life.dstl.services.ItemService;
 import gfortin.life.dstl.util.FragmentUtil;
 
@@ -100,8 +99,8 @@ public class SorceryFragment extends Fragment {
         image.setImageResource(getResources().getIdentifier(item.getName(), "drawable", getActivity().getPackageName()));
 
         LinearLayout linearLayoutTrophies = (LinearLayout) view.findViewById(R.id.sorcery_trophy);
-        List<Trophy> trophies = ItemService.getTrophyForItem(item, dbHelper);
-        for (final Trophy trophy : trophies) {
+        List<Item> trophies = ItemService.getTrophyForItem(item, dbHelper);
+        for (final Item trophy : trophies) {
             TextView tv = new TextView(getContext());
             tv.setText(getResources().getIdentifier(trophy.getName(), "string", getActivity().getPackageName()));
             tv.setTextSize(20);
@@ -125,13 +124,13 @@ public class SorceryFragment extends Fragment {
         for (ItemProperty itemProperty : itemProperties) {
             switch (itemProperty.getKey()) {
                 case "nbUses":
-                    spellUses.setText(itemProperty.getValue());
+                    spellUses.setText(itemProperty.getValue().toString());
                     break;
                 case "nbSlots":
-                    slotsUsed.setText(itemProperty.getValue());
+                    slotsUsed.setText(itemProperty.getValue().toString());
                     break;
                 case "lvlInt":
-                    lvlInt.setText(itemProperty.getValue());
+                    lvlInt.setText(itemProperty.getValue().toString());
                     break;
             }
         }

@@ -7,7 +7,6 @@ import android.util.Log;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
@@ -22,7 +21,6 @@ import gfortin.life.dstl.model.ItemProperty;
 import gfortin.life.dstl.model.ItemPropertyJunction;
 import gfortin.life.dstl.model.ItemTrophyJunction;
 import gfortin.life.dstl.model.Location;
-import gfortin.life.dstl.model.Trophy;
 import gfortin.life.dstl.model.Type;
 import gfortin.life.dstl.util.ApplicationData;
 
@@ -40,7 +38,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private Dao<Item, Integer> itemDao = null;
     private Dao<ItemProperty, Integer> itemPropertyDao = null;
     private Dao<Location, Integer> locationDao = null;
-    private Dao<Trophy, Integer> trophyDao = null;
     private Dao<Type, Integer> typeDao = null;
     private Dao<ItemTrophyJunction, Integer> itemTrophyDao = null;
     private Dao<ItemPropertyJunction, Integer> itemPropertyJunctionJDao = null;
@@ -67,9 +64,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             Class<?>[] modelClasses = ApplicationData.getModelclasses();
 
-            for (int i = 0; i < modelClasses.length; i++) {
-                TableUtils.createTable(connectionSource, modelClasses[i]);
+            for (Class modelClass: modelClasses) {
+                TableUtils.createTable(connectionSource, modelClass);
             }
+           /* for (int i = 0; i < modelClasses.length; i++) {
+                TableUtils.createTable(connectionSource, modelClasses[i]);
+            }*/
 
             PopulateDb.populateType(this);
             PopulateDb.populateGames(this);
@@ -140,13 +140,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return locationDao;
     }
 
-    /*Trophy*/
-    public Dao<Trophy, Integer> getTrophyDao() throws SQLException {
-        if (trophyDao == null)
-            trophyDao = getDao(Trophy.class);
-        return trophyDao;
-    }
-
     /*Type*/
     public Dao<Type, Integer> getTypeDao() throws SQLException {
         if (typeDao == null)
@@ -167,7 +160,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             itemPropertyJunctionJDao = getDao(ItemPropertyJunction.class);
         return itemPropertyJunctionJDao;
     }
-
 
 
     /**

@@ -14,7 +14,6 @@ import gfortin.life.dstl.model.ItemProperty;
 import gfortin.life.dstl.model.ItemPropertyJunction;
 import gfortin.life.dstl.model.ItemTrophyJunction;
 import gfortin.life.dstl.model.Location;
-import gfortin.life.dstl.model.Trophy;
 import gfortin.life.dstl.model.Type;
 
 public class DatabaseConfigUtil extends OrmLiteConfigUtil {
@@ -25,7 +24,6 @@ public class DatabaseConfigUtil extends OrmLiteConfigUtil {
             Item.class,
             Character.class,
             Location.class,
-            Trophy.class,
             ItemTrophyJunction.class,
             CharacterItemJunction.class,
             ItemProperty.class,

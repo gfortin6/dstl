@@ -24,6 +24,9 @@ public class Item {
     private Type attackType;
     @DatabaseField
     private boolean isAcquired;
+    @DatabaseField(foreign=true, foreignAutoRefresh=true)
+    private Game game;
+
 
 
     public Item() {
@@ -83,6 +86,14 @@ public class Item {
 
     public void setAcquired(boolean acquired) {
         isAcquired = acquired;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     @Override

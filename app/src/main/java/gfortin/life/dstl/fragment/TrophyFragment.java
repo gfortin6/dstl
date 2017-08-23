@@ -19,7 +19,6 @@ import java.util.List;
 import gfortin.life.dstl.R;
 import gfortin.life.dstl.helper.DatabaseHelper;
 import gfortin.life.dstl.model.Item;
-import gfortin.life.dstl.model.Trophy;
 import gfortin.life.dstl.services.ItemService;
 import gfortin.life.dstl.util.FragmentUtil;
 import gfortin.life.dstl.util.ViewUtil;
@@ -34,7 +33,7 @@ import gfortin.life.dstl.util.ViewUtil;
 public class TrophyFragment extends Fragment {
     private DatabaseHelper dbHelper;
     private Bundle bundle;
-    private Trophy trophy;
+    private Item trophy;
 
     private OnFragmentInteractionListener mListener;
 
@@ -52,7 +51,7 @@ public class TrophyFragment extends Fragment {
 
         try {
             int trophyId = bundle.getInt("trophyId");
-            trophy = dbHelper.getTrophyDao().queryForId(trophyId);
+            trophy = dbHelper.getItemDao().queryForId(trophyId);
             populateFields(view);
         } catch (Exception e) {
             throw new RuntimeException();
@@ -81,7 +80,7 @@ public class TrophyFragment extends Fragment {
 
     private void populateFields(View view) throws SQLException {
 
-        ImageView image = (ImageView) view.findViewById(R.id.trophy_img);
+       /* ImageView image = (ImageView) view.findViewById(R.id.trophy_img);
         image.setImageResource(getResources().getIdentifier(trophy.getPath(), "drawable", getActivity().getPackageName()));
 
         TextView name = (TextView) view.findViewById(R.id.trophy_name);
@@ -111,7 +110,7 @@ public class TrophyFragment extends Fragment {
             trophiesListItem.addView(tv);
 
             trophiesListItem.addView(ViewUtil.createDivider(getContext(),R.color.orange));
-        }
+        }*/
 
     }
 
@@ -122,7 +121,7 @@ public class TrophyFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 trophy.setAcquired(isChecked);
                 try {
-                    dbHelper.getTrophyDao().createOrUpdate(trophy);
+                    dbHelper.getItemDao().createOrUpdate(trophy);
                 } catch (Exception e) {
                     throw new RuntimeException();
                 }
