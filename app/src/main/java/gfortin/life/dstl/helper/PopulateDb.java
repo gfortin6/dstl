@@ -11,9 +11,9 @@ import java.util.StringTokenizer;
 import gfortin.life.dstl.constants.TypeConstant;
 import gfortin.life.dstl.model.Game;
 import gfortin.life.dstl.model.Item;
+import gfortin.life.dstl.model.ItemItemJunction;
 import gfortin.life.dstl.model.ItemProperty;
 import gfortin.life.dstl.model.ItemPropertyJunction;
-import gfortin.life.dstl.model.ItemTrophyJunction;
 import gfortin.life.dstl.model.Type;
 
 public class PopulateDb {
@@ -91,8 +91,8 @@ public class PopulateDb {
 
             BufferedReader in = new BufferedReader(new InputStreamReader(input));
             String line;
-            List<ItemTrophyJunction> lastInsertedItemTrophyJunction = dbHelper.getItemTrophyJunctionDao().query(dbHelper.getItemTrophyJunctionDao().queryBuilder().orderBy("id", false).limit(1L).prepare());
-            int index = (lastInsertedItemTrophyJunction.size() != 0) ? lastInsertedItemTrophyJunction.get(0).getId() : 0;
+            List<ItemItemJunction> lastInsertedItemItemJunction = dbHelper.getItemTrophyJunctionDao().query(dbHelper.getItemTrophyJunctionDao().queryBuilder().orderBy("id", false).limit(1L).prepare());
+            int index = (lastInsertedItemItemJunction.size() != 0) ? lastInsertedItemItemJunction.get(0).getId() : 0;
             while ((line = in.readLine()) != null) {
                 index++;
 
@@ -119,10 +119,10 @@ public class PopulateDb {
                 dbHelper.getItemDao().create(item);
 
 
-                ItemTrophyJunction itemTrophyJunction = new ItemTrophyJunction();
-                itemTrophyJunction.setItem(item);
-                itemTrophyJunction.setItem2(dbHelper.getItemDao().queryForId(Integer.parseInt(trophyId)));
-                dbHelper.getItemTrophyJunctionDao().create(itemTrophyJunction);
+                ItemItemJunction itemItemJunction = new ItemItemJunction();
+                itemItemJunction.setItem(item);
+                itemItemJunction.setItem2(dbHelper.getItemDao().queryForId(Integer.parseInt(trophyId)));
+                dbHelper.getItemTrophyJunctionDao().create(itemItemJunction);
 
 
                 ItemProperty nbUsesProp = new ItemProperty();

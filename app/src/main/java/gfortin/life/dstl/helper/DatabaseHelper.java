@@ -17,9 +17,9 @@ import gfortin.life.dstl.model.Character;
 import gfortin.life.dstl.model.CharacterItemJunction;
 import gfortin.life.dstl.model.Game;
 import gfortin.life.dstl.model.Item;
+import gfortin.life.dstl.model.ItemItemJunction;
 import gfortin.life.dstl.model.ItemProperty;
 import gfortin.life.dstl.model.ItemPropertyJunction;
-import gfortin.life.dstl.model.ItemTrophyJunction;
 import gfortin.life.dstl.model.Location;
 import gfortin.life.dstl.model.Type;
 import gfortin.life.dstl.util.ApplicationData;
@@ -39,7 +39,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private Dao<ItemProperty, Integer> itemPropertyDao = null;
     private Dao<Location, Integer> locationDao = null;
     private Dao<Type, Integer> typeDao = null;
-    private Dao<ItemTrophyJunction, Integer> itemTrophyDao = null;
+    private Dao<ItemItemJunction, Integer> itemTrophyDao = null;
     private Dao<ItemPropertyJunction, Integer> itemPropertyJunctionJDao = null;
 
 
@@ -67,10 +67,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             for (Class modelClass: modelClasses) {
                 TableUtils.createTable(connectionSource, modelClass);
             }
-           /* for (int i = 0; i < modelClasses.length; i++) {
-                TableUtils.createTable(connectionSource, modelClasses[i]);
-            }*/
-
             PopulateDb.populateType(this);
             PopulateDb.populateGames(this);
             PopulateDb.populateTrophies(this);
@@ -148,9 +144,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     /*Type*/
-    public Dao<ItemTrophyJunction, Integer> getItemTrophyJunctionDao() throws SQLException {
+    public Dao<ItemItemJunction, Integer> getItemTrophyJunctionDao() throws SQLException {
         if (itemTrophyDao == null)
-            itemTrophyDao = getDao(ItemTrophyJunction.class);
+            itemTrophyDao = getDao(ItemItemJunction.class);
         return itemTrophyDao;
     }
 

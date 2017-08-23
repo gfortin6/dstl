@@ -12,7 +12,7 @@ import gfortin.life.dstl.model.Game;
 import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.model.ItemProperty;
 import gfortin.life.dstl.model.ItemPropertyJunction;
-import gfortin.life.dstl.model.ItemTrophyJunction;
+import gfortin.life.dstl.model.ItemItemJunction;
 import gfortin.life.dstl.model.Location;
 import gfortin.life.dstl.model.Type;
 
@@ -24,7 +24,7 @@ public class DatabaseConfigUtil extends OrmLiteConfigUtil {
             Item.class,
             Character.class,
             Location.class,
-            ItemTrophyJunction.class,
+            ItemItemJunction.class,
             CharacterItemJunction.class,
             ItemProperty.class,
             ItemPropertyJunction.class,

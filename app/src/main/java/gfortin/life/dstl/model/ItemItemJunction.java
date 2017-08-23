@@ -10,7 +10,7 @@ import gfortin.life.dstl.util.UuidUtil;
  */
 
 @DatabaseTable(tableName = "itemitemjunction")
-public class ItemTrophyJunction {
+public class ItemItemJunction {
     public final static String ITEM2_ID_FIELD_NAME = "item2_id";
     public final static String ITEM_ID_FIELD_NAME = "item_id";
 
@@ -21,7 +21,7 @@ public class ItemTrophyJunction {
     @DatabaseField(foreign=true, foreignAutoRefresh=true)
     private Item item2;
 
-    public ItemTrophyJunction() {
+    public ItemItemJunction() {
     }
 
 

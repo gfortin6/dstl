@@ -13,7 +13,7 @@ import gfortin.life.dstl.model.Game;
 import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.model.ItemProperty;
 import gfortin.life.dstl.model.ItemPropertyJunction;
-import gfortin.life.dstl.model.ItemTrophyJunction;
+import gfortin.life.dstl.model.ItemItemJunction;
 import gfortin.life.dstl.model.Location;
 import gfortin.life.dstl.model.Type;
 
@@ -25,7 +25,7 @@ public class ApplicationData {
 			Item.class,
 			Character.class,
 			Location.class,
-			ItemTrophyJunction.class,
+			ItemItemJunction.class,
 			CharacterItemJunction.class,
 			ItemProperty.class,
 			ItemPropertyJunction.class,
@@ -37,33 +37,6 @@ public class ApplicationData {
 	 */
 	public static Class<?>[] getModelclasses() {
 		return modelClasses;
-	}
-
-	public static void showAlert(Activity activity, String message) {
-
-		TextView title = new TextView(activity);
-		title.setText("Error");
-		title.setPadding(10, 10, 10, 10);
-		title.setGravity(Gravity.CENTER);
-		title.setTextColor(Color.WHITE);
-		title.setTextSize(20);
-
-		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-		// builder.setTitle("Title");
-		builder.setCustomTitle(title);
-		// builder.setIcon(R.drawable.alert_36);
-
-		builder.setMessage(message);
-
-		builder.setCancelable(false);
-		builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-				dialog.cancel();
-			}
-		});
-
-		AlertDialog alert = builder.create();
-		alert.show();
 	}
 
 }
