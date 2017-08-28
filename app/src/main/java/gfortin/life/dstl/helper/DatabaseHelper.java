@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import gfortin.life.dstl.R;
 import gfortin.life.dstl.model.Character;
 import gfortin.life.dstl.model.CharacterItemJunction;
+import gfortin.life.dstl.model.CharacterPropertyJunction;
 import gfortin.life.dstl.model.Game;
 import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.model.ItemItemJunction;
@@ -42,7 +43,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private Dao<Type, Integer> typeDao = null;
     private Dao<ItemItemJunction, Integer> itemTrophyDao = null;
     private Dao<ItemPropertyJunction, Integer> itemPropertyJunctionJDao = null;
-
+    private Dao<CharacterPropertyJunction, Integer> characterPropertyJunctionDao = null;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
@@ -72,6 +73,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             PopulateDb.populateGames(this);
             PopulateDb.populateTrophies(this);
             PopulateDb.populateSorceries(this);
+            PopulateDb.populateCharacters(this);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -156,6 +158,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         if (itemPropertyJunctionJDao == null)
             itemPropertyJunctionJDao = getDao(ItemPropertyJunction.class);
         return itemPropertyJunctionJDao;
+    }
+
+    public Dao<CharacterPropertyJunction, Integer> getCharacterPropertyJunctionDao() throws SQLException{
+        if(characterPropertyJunctionDao == null){
+            characterPropertyJunctionDao = getDao(CharacterPropertyJunction.class);
+        }
+        return characterPropertyJunctionDao;
     }
 
 

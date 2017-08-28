@@ -10,6 +10,8 @@ import java.util.StringTokenizer;
 
 import gfortin.life.dstl.constants.TypeConstant;
 import gfortin.life.dstl.helper.DatabaseHelper;
+import gfortin.life.dstl.model.Character;
+import gfortin.life.dstl.model.CharacterPropertyJunction;
 import gfortin.life.dstl.model.Game;
 import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.model.ItemItemJunction;
@@ -223,7 +225,7 @@ public class PopulateDb {
     }
 
     //id|name|game|type|ngHealth|ngSouls|ng1Health|ng1Souls|ng6Health|ng6Souls
-  /*  public static void populateCharacters(DatabaseHelper dbHelper){
+    public static void populateCharacters(DatabaseHelper dbHelper){
 
         try {
             InputStream input = dbHelper.getContext().getApplicationContext()
@@ -252,7 +254,7 @@ public class PopulateDb {
                 character.setType(dbHelper.getTypeDao().queryForId(typeId));
                 dbHelper.getCharacterDao().create(character);
 
-                if(ngHealth.equals("null")){
+                if(!ngHealth.equals("null")){
                     Property property = new Property();
                     property.setKey("ngHealth");
                     property.setValue(ngHealth);
@@ -264,7 +266,7 @@ public class PopulateDb {
                     dbHelper.getCharacterPropertyJunctionDao().create(characterPropertyJunction);
                 }
 
-                if(ngSouls.equals("null")){
+                if(!ngSouls.equals("null")){
                     Property property = new Property();
                     property.setKey("ngSouls");
                     property.setValue(ngSouls);
@@ -276,7 +278,7 @@ public class PopulateDb {
                     dbHelper.getCharacterPropertyJunctionDao().create(characterPropertyJunction);
                 }
 
-                if(ng1Health.equals("null")){
+                if(!ng1Health.equals("null")){
                     Property property = new Property();
                     property.setKey("ng1Health");
                     property.setValue(ng1Health);
@@ -288,7 +290,7 @@ public class PopulateDb {
                     dbHelper.getCharacterPropertyJunctionDao().create(characterPropertyJunction);
                 }
 
-                if(ng1Souls.equals("null")){
+                if(!ng1Souls.equals("null")){
                     Property property = new Property();
                     property.setKey("ng1Souls");
                     property.setValue(ng1Souls);
@@ -300,7 +302,7 @@ public class PopulateDb {
                     dbHelper.getCharacterPropertyJunctionDao().create(characterPropertyJunction);
                 }
 
-                if(ng6Health.equals("null")){
+                if(!ng6Health.equals("null")){
                     Property property = new Property();
                     property.setKey("ng6Health");
                     property.setValue(ng6Health);
@@ -312,7 +314,7 @@ public class PopulateDb {
                     dbHelper.getCharacterPropertyJunctionDao().create(characterPropertyJunction);
                 }
 
-                if(ng6Souls.equals("null")){
+                if(!ng6Souls.equals("null")){
                     Property property = new Property();
                     property.setKey("ng6Souls");
                     property.setValue(ng6Souls);
@@ -333,5 +335,5 @@ public class PopulateDb {
             throw new RuntimeException(e);
         }
 
-    }*/
+    }
 }

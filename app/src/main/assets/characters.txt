@@ -3,6 +3,3 @@
 3|asylum_demon|1|50|813|2000|2195|10000|2744|12500
 4|big_hat_logan|1|49|null|null|null|null|null|null
 5|blacksmith_rickert_of_vinheim|1|51|null|null|null|null|null|null
-
-
-id|name|game|type|ngHealth|ngSouls|ng1Health|ng1Souls|ng6Health|ng6Souls
