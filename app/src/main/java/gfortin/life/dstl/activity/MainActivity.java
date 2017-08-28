@@ -21,10 +21,11 @@ import gfortin.life.dstl.fragment.ItemFragment;
 import gfortin.life.dstl.fragment.SorceryFragment;
 import gfortin.life.dstl.fragment.TrophyFragment;
 import gfortin.life.dstl.helper.DatabaseHelper;
+import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.util.FragmentUtil;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, SorceryFragment.OnFragmentInteractionListener, TrophyFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, SorceryFragment.OnFragmentInteractionListener, ItemFragment.OnListFragmentInteractionListener {
 
     DatabaseHelper dbHelper;
 
@@ -117,6 +118,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_rings:
                 break;
+            case R.id.nav_trophies:
+                FragmentUtil.createNewFragment(new ItemFragment(), getSupportFragmentManager(),"itemId", item.getItemId(), getResources().getBoolean(R.bool.twoPaneMode));
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -129,5 +133,11 @@ public class MainActivity extends AppCompatActivity
     public void onFragmentInteraction(Uri uri){
         //you can leave it empty
     }
+
+    @Override
+    public void onListFragmentInteraction(Item item){
+        //you can leave it empty
+    }
+
 
 }

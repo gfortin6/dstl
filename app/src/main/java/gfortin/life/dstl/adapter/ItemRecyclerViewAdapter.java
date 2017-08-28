@@ -14,6 +14,7 @@ import gfortin.life.dstl.R;
 import gfortin.life.dstl.constants.TypeConstant;
 import gfortin.life.dstl.fragment.ItemFragment.OnListFragmentInteractionListener;
 import gfortin.life.dstl.fragment.SorceryFragment;
+import gfortin.life.dstl.fragment.TrophyFragment;
 import gfortin.life.dstl.holder.ViewHolder;
 import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.util.FragmentUtil;
@@ -63,12 +64,19 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
                /* Bundle bundle = new Bundle();
                 bundle.putInt("itemId", holder.mItem.getId());
                 Fragment detailFragment = null;*/
-                if (holder.mItem.getSubtype().getId() == TypeConstant.Sorceries){
-                    FragmentUtil.createNewFragment(new SorceryFragment(), fragmentManager, "itemId", holder.mItem.getId(), isTwoPannels);
-                //    detailFragment = new SorceryFragment();
-                }else if (holder.mItem.getSubtype().getId() == TypeConstant.Miracles){
+               if(holder.mItem.getSubtype() != null){
+                   if (holder.mItem.getSubtype().getId() == TypeConstant.Sorceries){
+                       FragmentUtil.createNewFragment(new SorceryFragment(), fragmentManager, "itemId", holder.mItem.getId(), isTwoPannels);
+                       //    detailFragment = new SorceryFragment();
+                   }else if (holder.mItem.getSubtype().getId() == TypeConstant.Miracles){
 
-                }
+                   }
+               }else{
+                   if (holder.mItem.getType().getId() == TypeConstant.Trophy){
+                       FragmentUtil.createNewFragment(new TrophyFragment(), fragmentManager, "trophyId", holder.mItem.getId(), isTwoPannels);
+                   }
+               }
+
             }
         });
     }

@@ -1,0 +1,5 @@
+ID|name|recommendedLvl|beforeLocation|nextLocation|boss
+
+1|northern_undead_asylum|any|null|2|3
+2|firelink_shrine|any|1|3|null
+3|undead_burg|any|2|4|2

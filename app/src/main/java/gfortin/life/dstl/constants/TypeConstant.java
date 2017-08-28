@@ -54,4 +54,14 @@ public final class TypeConstant {
     public final static int Support_Attack = 46;
     public final static int AoE_Ranged_Sorcery = 47;
     public final static int Trophy = 48;
+
+
+    public final static String TROPHY_LVL = "trophyLvl";
+    public final static String TROPHY_VALUE = "trophyValue";
+    public final static String GAME = "game";
+    public final static String ATTACK_TYPE = "attackType";
+    public final static String LVL_INT = "lvlInt";
+    public final static String NB_SLOTS = "nbSlots";
+    public final static String NB_USES = "nbUses";
+
 }

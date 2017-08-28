@@ -62,19 +62,69 @@
         android:layout_marginTop="10dp"
         android:background="@color/lightgrey" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/itemList"
+        android:textSize="25sp" />
 
     <TextView
+        android:id="@+id/tvToDiscover"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:text="@string/itemList"
-        android:textSize="20sp" />
+        android:layout_gravity="center"
+        android:text="@string/toDiscover"
+        android:textSize="25sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+    <View
+        android:id="@+id/viewToDiscover"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lightgrey" />
 
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/listItemsToDiscover"
+        android:name="gfortin.life.dstl.fragments.ItemFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/trophyListItem" />
+        app:layoutManager="LinearLayoutManager"
+        tools:context="gfortin.life.dstl.fragment.ItemFragment"
+        tools:listitem="@layout/fragment_item" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lightgrey" />
+
+    <TextView
+        android:id="@+id/tvAcquired"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/acquired"
+        android:layout_gravity="center"
+        android:textSize="25sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+    <View
+        android:id="@+id/viewAcquired"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lightgrey" />
+    <android.support.v7.widget.RecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/listAcquiredItems"
+        android:name="gfortin.life.dstl.fragments.ItemFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="LinearLayoutManager"
+        tools:context="gfortin.life.dstl.fragment.ItemFragment"
+        tools:listitem="@layout/fragment_item" />
+
 
 </LinearLayout>

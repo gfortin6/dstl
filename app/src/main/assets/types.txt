@@ -46,3 +46,6 @@
 46|Support_Attack
 47|AoE_Ranged_Sorcery
 48|Trophy
+49|Merchant
+50|Boss
+51|Blacksmith

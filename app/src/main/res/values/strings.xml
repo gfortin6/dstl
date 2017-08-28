@@ -37,6 +37,8 @@
     <string name="Trophy">Trophy : </string>
     <string name="intelligence">Intelligence</string>
     <string name="itemList">Item list</string>
+    <string name="confirmAcquiredTrophy">Are you sure you have acquired the %1$s trophy?</string>
+    <string name="confirmUncheckTrophy">Are you sure you want to uncheck the %1$s trophy? This will uncheck all the %2$s linked to this trophy.</string>
 
 
 </resources>
