@@ -9,7 +9,7 @@ import gfortin.life.dstl.util.UuidUtil;
  */
 
 public class Location {
-    @DatabaseField(generatedId = true)
+    @DatabaseField(id = true)
     private int id;
 
 

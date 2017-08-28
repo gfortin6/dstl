@@ -1,5 +1,5 @@
 #
-# generated on 2017/08/28 01:43:49
+# generated on 2017/08/28 06:43:06
 #
 # --table-start--
 dataClass=gfortin.life.dstl.model.Game
@@ -7,7 +7,7 @@ tableName=game
 # --table-fields-start--
 # --field-start--
 fieldName=id
-generatedId=true
+id=true
 # --field-end--
 # --field-start--
 fieldName=name
@@ -33,7 +33,7 @@ tableName=type
 # --table-fields-start--
 # --field-start--
 fieldName=id
-generatedId=true
+id=true
 # --field-end--
 # --field-start--
 fieldName=name
@@ -50,7 +50,7 @@ tableName=item
 # --table-fields-start--
 # --field-start--
 fieldName=id
-generatedId=true
+id=true
 # --field-end--
 # --field-start--
 fieldName=name
@@ -86,6 +86,10 @@ foreign=true
 foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2
 # --field-end--
+# --field-start--
+fieldName=properties
+foreignCollection=true
+# --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
@@ -95,7 +99,7 @@ tableName=character
 # --table-fields-start--
 # --field-start--
 fieldName=id
-generatedId=true
+id=true
 # --field-end--
 # --field-start--
 fieldName=name
@@ -121,6 +125,10 @@ foreign=true
 foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2
 # --field-end--
+# --field-start--
+fieldName=properties
+foreignCollection=true
+# --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
@@ -130,7 +138,7 @@ tableName=location
 # --table-fields-start--
 # --field-start--
 fieldName=id
-generatedId=true
+id=true
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -195,17 +203,6 @@ fieldName=key
 # --field-start--
 fieldName=value
 # --field-end--
-# --table-fields-end--
-# --table-end--
-#################################
-# --table-start--
-dataClass=gfortin.life.dstl.model.ItemPropertyJunction
-tableName=itempropertyjunction
-# --table-fields-start--
-# --field-start--
-fieldName=id
-generatedId=true
-# --field-end--
 # --field-start--
 fieldName=item
 foreign=true
@@ -213,31 +210,7 @@ foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2
 # --field-end--
 # --field-start--
-fieldName=property
-columnName=item_property_id
-foreign=true
-foreignAutoRefresh=true
-maxForeignAutoRefreshLevel=2
-# --field-end--
-# --table-fields-end--
-# --table-end--
-#################################
-# --table-start--
-dataClass=gfortin.life.dstl.model.CharacterPropertyJunction
-tableName=characterpropertyjunction
-# --table-fields-start--
-# --field-start--
-fieldName=id
-generatedId=true
-# --field-end--
-# --field-start--
 fieldName=character
-foreign=true
-foreignAutoRefresh=true
-maxForeignAutoRefreshLevel=2
-# --field-end--
-# --field-start--
-fieldName=property
 foreign=true
 foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2

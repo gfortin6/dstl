@@ -86,8 +86,7 @@ public class TrophyFragment extends Fragment {
 
     private void populateFields(View view) throws SQLException {
 
-        List<Property> itemProperties = ItemService.getItemPropertyForItem(trophy, dbHelper);
-        for (Property property : itemProperties) {
+        for (Property property : trophy.getProperties()) {
             if (property.getKey().equals(TypeConstant.TROPHY_LVL)) {
                 ImageView image = (ImageView) view.findViewById(R.id.trophy_img);
                 image.setImageResource(getResources().getIdentifier(property.getValue().toString(), "drawable", getActivity().getPackageName()));

@@ -120,8 +120,8 @@ public class SorceryFragment extends Fragment {
         TextView slotsUsed = (TextView) view.findViewById(R.id.sorcery_slots_used);
 
 
-        List<Property> itemProperties = ItemService.getItemPropertyForItem(item, dbHelper);
-        for (Property property : itemProperties) {
+        /*List<Property> itemProperties = ItemService.getPropertyOfItem(item, dbHelper);*/
+        for (Property property : item.getProperties()) {
             switch (property.getKey()) {
                 case "nbUses":
                     spellUses.setText(property.getValue().toString());

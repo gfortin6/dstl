@@ -1,22 +1,23 @@
 package gfortin.life.dstl.util;
 
+import com.j256.ormlite.dao.ForeignCollection;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.StringTokenizer;
 
 import gfortin.life.dstl.constants.TypeConstant;
 import gfortin.life.dstl.helper.DatabaseHelper;
 import gfortin.life.dstl.model.Character;
-import gfortin.life.dstl.model.CharacterPropertyJunction;
 import gfortin.life.dstl.model.Game;
 import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.model.ItemItemJunction;
 import gfortin.life.dstl.model.Property;
-import gfortin.life.dstl.model.ItemPropertyJunction;
 import gfortin.life.dstl.model.Type;
 
 public class PopulateDb {
@@ -94,14 +95,8 @@ public class PopulateDb {
 
             BufferedReader in = new BufferedReader(new InputStreamReader(input));
             String line;
-            List<ItemItemJunction> lastInsertedItemItemJunction = dbHelper.getItemTrophyJunctionDao().query(dbHelper.getItemTrophyJunctionDao().queryBuilder().orderBy("id", false).limit(1L).prepare());
-            int index = (lastInsertedItemItemJunction.size() != 0) ? lastInsertedItemItemJunction.get(0).getId() : 0;
             while ((line = in.readLine()) != null) {
-                index++;
-
-
                 StringTokenizer stTok = new StringTokenizer(line, "|");
-
                 int id = Integer.parseInt(stTok.nextToken());
                 String name = stTok.nextToken();
                 String nbUses = stTok.nextToken();
@@ -113,13 +108,12 @@ public class PopulateDb {
 
                 Item item = new Item();
                 item.setId(id);
-                item.setName(name);            //Assert.assertEquals();
+                item.setName(name);
 
                 item.setDescription(description);
                 item.setAttackType(dbHelper.getTypeDao().queryForId(Integer.parseInt(attackTypeId)));
                 item.setType(dbHelper.getTypeDao().queryForId(TypeConstant.Spells));
                 item.setSubtype(dbHelper.getTypeDao().queryForId(TypeConstant.Sorceries));
-                dbHelper.getItemDao().create(item);
 
 
                 ItemItemJunction itemItemJunction = new ItemItemJunction();
@@ -127,38 +121,33 @@ public class PopulateDb {
                 itemItemJunction.setItem2(dbHelper.getItemDao().queryForId(Integer.parseInt(trophyId)));
                 dbHelper.getItemTrophyJunctionDao().create(itemItemJunction);
 
+                Collection<Property> properties = new ArrayList<>();
 
                 Property nbUsesProp = new Property();
                 nbUsesProp.setKey("nbUses");
                 nbUsesProp.setValue(nbUses);
+                nbUsesProp.setItem(item);
+                properties.add(nbUsesProp);
                 dbHelper.getItemPropertyDao().create(nbUsesProp);
-
-                ItemPropertyJunction nbUsesPropJunction = new ItemPropertyJunction();
-                nbUsesPropJunction.setItem(item);
-                nbUsesPropJunction.setProperty(nbUsesProp);
-                dbHelper.getItemPropertyJonctionDao().create(nbUsesPropJunction);
-
 
                 Property nbSlotsProp = new Property();
                 nbSlotsProp.setKey("nbSlots");
                 nbSlotsProp.setValue(nbSlots);
+                nbSlotsProp.setItem(item);
+                properties.add(nbSlotsProp);
                 dbHelper.getItemPropertyDao().create(nbSlotsProp);
-
-                ItemPropertyJunction nbSlotsPropJunction = new ItemPropertyJunction();
-                nbSlotsPropJunction.setItem(item);
-                nbSlotsPropJunction.setProperty(nbSlotsProp);
-                dbHelper.getItemPropertyJonctionDao().create(nbSlotsPropJunction);
-
 
                 Property lvlIntProp = new Property();
                 lvlIntProp.setKey("lvlInt");
                 lvlIntProp.setValue(lvlInt);
+                lvlIntProp.setItem(item);
+                properties.add(lvlIntProp);
                 dbHelper.getItemPropertyDao().create(lvlIntProp);
 
-                ItemPropertyJunction lvlIntPropJunction = new ItemPropertyJunction();
-                lvlIntPropJunction.setItem(item);
-                lvlIntPropJunction.setProperty(lvlIntProp);
-                dbHelper.getItemPropertyJonctionDao().create(lvlIntPropJunction);
+
+                item.setProperties(properties);
+                dbHelper.getItemDao().create(item);
+
 
             }
             in.close();
@@ -193,27 +182,30 @@ public class PopulateDb {
                 trophy.setDescription(description);
                 trophy.setAcquired(false);
                 trophy.setGame(dbHelper.getGameDao().queryForId(gameId));
-                dbHelper.getItemDao().create(trophy);
+                trophy.setType(dbHelper.getTypeDao().queryForId(TypeConstant.Trophy));
+
+                Collection<Property> properties = new ArrayList<>();
 
                 Property trophyLvlProp = new Property();
-                trophyLvlProp.setKey("trophyLevel");
+                trophyLvlProp.setKey(TypeConstant.TROPHY_LVL);
                 trophyLvlProp.setValue(trophyLevel);
+                trophyLvlProp.setItem(trophy);
                 dbHelper.getItemPropertyDao().create(trophyLvlProp);
+                properties.add(trophyLvlProp);
 
-                ItemPropertyJunction trophyLvlPropJunction = new ItemPropertyJunction();
-                trophyLvlPropJunction.setItem(trophy);
-                trophyLvlPropJunction.setProperty(trophyLvlProp);
-                dbHelper.getItemPropertyJonctionDao().create(trophyLvlPropJunction);
 
                 Property trophyValueProp = new Property();
-                trophyValueProp.setKey("trophyValue");
+                trophyValueProp.setKey(TypeConstant.TROPHY_VALUE);
                 trophyValueProp.setValue(trophy_value);
+                trophyValueProp.setItem(trophy);
+                properties.add(trophyValueProp);
                 dbHelper.getItemPropertyDao().create(trophyValueProp);
 
-                ItemPropertyJunction trophyValuePropJunction = new ItemPropertyJunction();
-                trophyValuePropJunction.setItem(trophy);
-                trophyValuePropJunction.setProperty(trophyValueProp);
-                dbHelper.getItemPropertyJonctionDao().create(trophyValuePropJunction);
+
+                trophy.setProperties(properties);
+                dbHelper.getItemDao().create(trophy);
+
+
             }
             in.close();
 
@@ -225,7 +217,7 @@ public class PopulateDb {
     }
 
     //id|name|game|type|ngHealth|ngSouls|ng1Health|ng1Souls|ng6Health|ng6Souls
-    public static void populateCharacters(DatabaseHelper dbHelper){
+    public static void populateCharacters(DatabaseHelper dbHelper) {
 
         try {
             InputStream input = dbHelper.getContext().getApplicationContext()
@@ -252,79 +244,67 @@ public class PopulateDb {
                 character.setName(name);
                 character.setGame(dbHelper.getGameDao().queryForId(gameId));
                 character.setType(dbHelper.getTypeDao().queryForId(typeId));
+
+                Collection<Property> properties = new ArrayList<>();
+
+
+                if (!ngHealth.equals("null")) {
+                    Property ngHealthProp = new Property();
+                    ngHealthProp.setKey("ngHealth");
+                    ngHealthProp.setValue(ngHealth);
+                    ngHealthProp.setCharacter(character);
+                    properties.add(ngHealthProp);
+                    dbHelper.getItemPropertyDao().create(ngHealthProp);
+                }
+
+                if (!ngSouls.equals("null")) {
+                    Property ngSoulsProp = new Property();
+                    ngSoulsProp.setKey("ngSouls");
+                    ngSoulsProp.setValue(ngSouls);
+                    ngSoulsProp.setCharacter(character);
+                    properties.add(ngSoulsProp);
+                    dbHelper.getItemPropertyDao().create(ngSoulsProp);
+                }
+
+                if (!ng1Health.equals("null")) {
+                    Property ng1HealthProp = new Property();
+                    ng1HealthProp.setKey("ng1Health");
+                    ng1HealthProp.setValue(ng1Health);
+                    ng1HealthProp.setCharacter(character);
+                    properties.add(ng1HealthProp);
+                    dbHelper.getItemPropertyDao().create(ng1HealthProp);
+                }
+
+                if (!ng1Souls.equals("null")) {
+                    Property ng1SoulsProp = new Property();
+                    ng1SoulsProp.setKey("ng1Souls");
+                    ng1SoulsProp.setValue(ng1Souls);
+                    ng1SoulsProp.setCharacter(character);
+                    properties.add(ng1SoulsProp);
+                    dbHelper.getItemPropertyDao().create(ng1SoulsProp);
+                }
+
+                if (!ng6Health.equals("null")) {
+                    Property ng6HealthProp = new Property();
+                    ng6HealthProp.setKey("ng6Health");
+                    ng6HealthProp.setValue(ng6Health);
+                    ng6HealthProp.setCharacter(character);
+                    properties.add(ng6HealthProp);
+                    dbHelper.getItemPropertyDao().create(ng6HealthProp);
+                }
+
+                if (!ng6Souls.equals("null")) {
+                    Property ng6SoulsProp = new Property();
+                    ng6SoulsProp.setKey("ng6Souls");
+                    ng6SoulsProp.setValue(ng6Souls);
+                    ng6SoulsProp.setCharacter(character);
+                    properties.add(ng6SoulsProp);
+                    dbHelper.getItemPropertyDao().create(ng6SoulsProp);
+                }
+
+                character.setProperties(properties);
                 dbHelper.getCharacterDao().create(character);
 
-                if(!ngHealth.equals("null")){
-                    Property property = new Property();
-                    property.setKey("ngHealth");
-                    property.setValue(ngHealth);
-                    dbHelper.getItemPropertyDao().create(property);
-
-                    CharacterPropertyJunction characterPropertyJunction = new CharacterPropertyJunction();
-                    characterPropertyJunction.setCharacter(character);
-                    characterPropertyJunction.setProperty(property);
-                    dbHelper.getCharacterPropertyJunctionDao().create(characterPropertyJunction);
-                }
-
-                if(!ngSouls.equals("null")){
-                    Property property = new Property();
-                    property.setKey("ngSouls");
-                    property.setValue(ngSouls);
-                    dbHelper.getItemPropertyDao().create(property);
-
-                    CharacterPropertyJunction characterPropertyJunction = new CharacterPropertyJunction();
-                    characterPropertyJunction.setCharacter(character);
-                    characterPropertyJunction.setProperty(property);
-                    dbHelper.getCharacterPropertyJunctionDao().create(characterPropertyJunction);
-                }
-
-                if(!ng1Health.equals("null")){
-                    Property property = new Property();
-                    property.setKey("ng1Health");
-                    property.setValue(ng1Health);
-                    dbHelper.getItemPropertyDao().create(property);
-
-                    CharacterPropertyJunction characterPropertyJunction = new CharacterPropertyJunction();
-                    characterPropertyJunction.setCharacter(character);
-                    characterPropertyJunction.setProperty(property);
-                    dbHelper.getCharacterPropertyJunctionDao().create(characterPropertyJunction);
-                }
-
-                if(!ng1Souls.equals("null")){
-                    Property property = new Property();
-                    property.setKey("ng1Souls");
-                    property.setValue(ng1Souls);
-                    dbHelper.getItemPropertyDao().create(property);
-
-                    CharacterPropertyJunction characterPropertyJunction = new CharacterPropertyJunction();
-                    characterPropertyJunction.setCharacter(character);
-                    characterPropertyJunction.setProperty(property);
-                    dbHelper.getCharacterPropertyJunctionDao().create(characterPropertyJunction);
-                }
-
-                if(!ng6Health.equals("null")){
-                    Property property = new Property();
-                    property.setKey("ng6Health");
-                    property.setValue(ng6Health);
-                    dbHelper.getItemPropertyDao().create(property);
-
-                    CharacterPropertyJunction characterPropertyJunction = new CharacterPropertyJunction();
-                    characterPropertyJunction.setCharacter(character);
-                    characterPropertyJunction.setProperty(property);
-                    dbHelper.getCharacterPropertyJunctionDao().create(characterPropertyJunction);
-                }
-
-                if(!ng6Souls.equals("null")){
-                    Property property = new Property();
-                    property.setKey("ng6Souls");
-                    property.setValue(ng6Souls);
-                    dbHelper.getItemPropertyDao().create(property);
-
-                    CharacterPropertyJunction characterPropertyJunction = new CharacterPropertyJunction();
-                    characterPropertyJunction.setCharacter(character);
-                    characterPropertyJunction.setProperty(property);
-                    dbHelper.getCharacterPropertyJunctionDao().create(characterPropertyJunction);
-                }
 
             }
             in.close();

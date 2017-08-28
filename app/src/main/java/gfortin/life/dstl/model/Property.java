@@ -9,7 +9,8 @@ import gfortin.life.dstl.util.UuidUtil;
  */
 
 public class Property {
-    public final static String ID_FIELD_NAME = "id";
+    public final static String ITEM_ID_FIELD_NAME = "item_id";
+    public final static String CHARACTER_ID_FIELD_NAME = "character_id";
 
     @DatabaseField(generatedId = true)
     private int id;
@@ -17,6 +18,10 @@ public class Property {
     private String key;
     @DatabaseField
     private String value;
+    @DatabaseField(foreign=true, foreignAutoRefresh=true)
+    private Item item;
+    @DatabaseField(foreign=true, foreignAutoRefresh=true)
+    private Character character;
 
     public String getKey() {
         return key;
@@ -34,7 +39,23 @@ public class Property {
         this.value = value;
     }
 
-/*
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public Character getCharacter() {
+        return character;
+    }
+
+    public void setCharacter(Character character) {
+        this.character = character;
+    }
+
+    /*
 
     @DatabaseField
     private int cost;

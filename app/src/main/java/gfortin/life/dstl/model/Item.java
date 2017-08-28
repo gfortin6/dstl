@@ -1,6 +1,10 @@
 package gfortin.life.dstl.model;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
+
+import java.util.Collection;
 
 /**
  * Created by guillaume on 30/07/17.
@@ -10,7 +14,7 @@ public class Item {
     public final static String ID_FIELD_NAME = "id";
 
 
-    @DatabaseField(generatedId = true)
+    @DatabaseField(id = true)
     private int id;
     @DatabaseField
     private String name;
@@ -26,7 +30,8 @@ public class Item {
     private boolean isAcquired;
     @DatabaseField(foreign=true, foreignAutoRefresh=true)
     private Game game;
-
+    @ForeignCollectionField
+    Collection<Property> properties;
 
 
     public Item() {
@@ -94,6 +99,14 @@ public class Item {
 
     public void setGame(Game game) {
         this.game = game;
+    }
+
+    public Collection<Property> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Collection<Property> properties) {
+        this.properties = properties;
     }
 
     @Override

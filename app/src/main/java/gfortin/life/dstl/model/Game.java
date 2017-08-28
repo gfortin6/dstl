@@ -9,7 +9,7 @@ import java.util.Date;
  */
 
 public class Game {
-    @DatabaseField(generatedId = true)
+    @DatabaseField(id = true)
     private int id;
     @DatabaseField
     private String name;

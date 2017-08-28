@@ -1,6 +1,10 @@
 package gfortin.life.dstl.model;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
+
+import java.util.Collection;
 
 import gfortin.life.dstl.util.UuidUtil;
 
@@ -10,7 +14,7 @@ import gfortin.life.dstl.util.UuidUtil;
 //id|name|game|type|ngHealth|ngSouls|ng1Health|ng1Souls|ng6Health|ng6Souls
 
 public class Character {
-    @DatabaseField(generatedId=true)
+    @DatabaseField(id = true)
     private int id;
     @DatabaseField
     private String name;
@@ -22,6 +26,8 @@ public class Character {
     private Type type;
     @DatabaseField(foreign=true, foreignAutoRefresh=true)
     private Type subtype;
+    @ForeignCollectionField
+    Collection<Property> properties;
 
     public Character() {
     }
@@ -72,6 +78,14 @@ public class Character {
 
     public void setSubtype(Type subtype) {
         this.subtype = subtype;
+    }
+
+    public Collection<Property> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Collection<Property> properties) {
+        this.properties = properties;
     }
 }
 
