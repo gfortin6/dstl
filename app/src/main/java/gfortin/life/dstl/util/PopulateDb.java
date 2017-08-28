@@ -1,4 +1,4 @@
-package gfortin.life.dstl.helper;
+package gfortin.life.dstl.util;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import gfortin.life.dstl.constants.TypeConstant;
+import gfortin.life.dstl.helper.DatabaseHelper;
 import gfortin.life.dstl.model.Game;
 import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.model.ItemItemJunction;

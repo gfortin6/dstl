@@ -23,6 +23,7 @@ import gfortin.life.dstl.model.ItemPropertyJunction;
 import gfortin.life.dstl.model.Location;
 import gfortin.life.dstl.model.Type;
 import gfortin.life.dstl.util.ApplicationData;
+import gfortin.life.dstl.util.PopulateDb;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
