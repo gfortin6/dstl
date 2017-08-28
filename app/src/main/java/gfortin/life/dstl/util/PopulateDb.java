@@ -13,7 +13,7 @@ import gfortin.life.dstl.helper.DatabaseHelper;
 import gfortin.life.dstl.model.Game;
 import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.model.ItemItemJunction;
-import gfortin.life.dstl.model.ItemProperty;
+import gfortin.life.dstl.model.Property;
 import gfortin.life.dstl.model.ItemPropertyJunction;
 import gfortin.life.dstl.model.Type;
 
@@ -126,36 +126,36 @@ public class PopulateDb {
                 dbHelper.getItemTrophyJunctionDao().create(itemItemJunction);
 
 
-                ItemProperty nbUsesProp = new ItemProperty();
+                Property nbUsesProp = new Property();
                 nbUsesProp.setKey("nbUses");
                 nbUsesProp.setValue(nbUses);
                 dbHelper.getItemPropertyDao().create(nbUsesProp);
 
                 ItemPropertyJunction nbUsesPropJunction = new ItemPropertyJunction();
                 nbUsesPropJunction.setItem(item);
-                nbUsesPropJunction.setItemProperty(nbUsesProp);
+                nbUsesPropJunction.setProperty(nbUsesProp);
                 dbHelper.getItemPropertyJonctionDao().create(nbUsesPropJunction);
 
 
-                ItemProperty nbSlotsProp = new ItemProperty();
+                Property nbSlotsProp = new Property();
                 nbSlotsProp.setKey("nbSlots");
                 nbSlotsProp.setValue(nbSlots);
                 dbHelper.getItemPropertyDao().create(nbSlotsProp);
 
                 ItemPropertyJunction nbSlotsPropJunction = new ItemPropertyJunction();
                 nbSlotsPropJunction.setItem(item);
-                nbSlotsPropJunction.setItemProperty(nbSlotsProp);
+                nbSlotsPropJunction.setProperty(nbSlotsProp);
                 dbHelper.getItemPropertyJonctionDao().create(nbSlotsPropJunction);
 
 
-                ItemProperty lvlIntProp = new ItemProperty();
+                Property lvlIntProp = new Property();
                 lvlIntProp.setKey("lvlInt");
                 lvlIntProp.setValue(lvlInt);
                 dbHelper.getItemPropertyDao().create(lvlIntProp);
 
                 ItemPropertyJunction lvlIntPropJunction = new ItemPropertyJunction();
                 lvlIntPropJunction.setItem(item);
-                lvlIntPropJunction.setItemProperty(lvlIntProp);
+                lvlIntPropJunction.setProperty(lvlIntProp);
                 dbHelper.getItemPropertyJonctionDao().create(lvlIntPropJunction);
 
             }
@@ -193,24 +193,24 @@ public class PopulateDb {
                 trophy.setGame(dbHelper.getGameDao().queryForId(gameId));
                 dbHelper.getItemDao().create(trophy);
 
-                ItemProperty trophyLvlProp = new ItemProperty();
+                Property trophyLvlProp = new Property();
                 trophyLvlProp.setKey("trophyLevel");
                 trophyLvlProp.setValue(trophyLevel);
                 dbHelper.getItemPropertyDao().create(trophyLvlProp);
 
                 ItemPropertyJunction trophyLvlPropJunction = new ItemPropertyJunction();
                 trophyLvlPropJunction.setItem(trophy);
-                trophyLvlPropJunction.setItemProperty(trophyLvlProp);
+                trophyLvlPropJunction.setProperty(trophyLvlProp);
                 dbHelper.getItemPropertyJonctionDao().create(trophyLvlPropJunction);
 
-                ItemProperty trophyValueProp = new ItemProperty();
+                Property trophyValueProp = new Property();
                 trophyValueProp.setKey("trophyValue");
                 trophyValueProp.setValue(trophy_value);
                 dbHelper.getItemPropertyDao().create(trophyValueProp);
 
                 ItemPropertyJunction trophyValuePropJunction = new ItemPropertyJunction();
                 trophyValuePropJunction.setItem(trophy);
-                trophyValuePropJunction.setItemProperty(trophyValueProp);
+                trophyValuePropJunction.setProperty(trophyValueProp);
                 dbHelper.getItemPropertyJonctionDao().create(trophyValuePropJunction);
             }
             in.close();

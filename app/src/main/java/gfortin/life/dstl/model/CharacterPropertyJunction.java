@@ -19,7 +19,7 @@ public class CharacterPropertyJunction {
     @DatabaseField(foreign=true, foreignAutoRefresh=true)
     private Character character;
     @DatabaseField(foreign=true, foreignAutoRefresh=true)
-    private ItemProperty property;
+    private Property property;
 
     public CharacterPropertyJunction() {
     }
@@ -32,11 +32,11 @@ public class CharacterPropertyJunction {
         this.character = character;
     }
 
-    public ItemProperty getProperty() {
+    public Property getProperty() {
         return property;
     }
 
-    public void setProperty(ItemProperty property) {
+    public void setProperty(Property property) {
         this.property = property;
     }
 }

@@ -19,7 +19,7 @@ public class ItemPropertyJunction {
     @DatabaseField(foreign=true, foreignAutoRefresh=true)
     private Item item;
     @DatabaseField(foreign=true, foreignAutoRefresh=true, columnName = "item_property_id")
-    private ItemProperty itemProperty;
+    private Property property;
 
     public ItemPropertyJunction() {
     }
@@ -32,12 +32,12 @@ public class ItemPropertyJunction {
         this.item = item;
     }
 
-    public ItemProperty getItemProperty() {
-        return itemProperty;
+    public Property getProperty() {
+        return property;
     }
 
-    public void setItemProperty(ItemProperty itemProperty) {
-        this.itemProperty = itemProperty;
+    public void setProperty(Property property) {
+        this.property = property;
     }
 }
 

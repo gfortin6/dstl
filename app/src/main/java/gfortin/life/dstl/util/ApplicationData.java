@@ -6,7 +6,7 @@ import gfortin.life.dstl.model.CharacterPropertyJunction;
 import gfortin.life.dstl.model.Game;
 import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.model.ItemItemJunction;
-import gfortin.life.dstl.model.ItemProperty;
+import gfortin.life.dstl.model.Property;
 import gfortin.life.dstl.model.ItemPropertyJunction;
 import gfortin.life.dstl.model.Location;
 import gfortin.life.dstl.model.Type;
@@ -21,7 +21,7 @@ public class ApplicationData {
             Location.class,
             ItemItemJunction.class,
             CharacterItemJunction.class,
-            ItemProperty.class,
+            Property.class,
             ItemPropertyJunction.class,
             CharacterPropertyJunction.class,
 

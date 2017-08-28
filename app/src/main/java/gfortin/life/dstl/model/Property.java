@@ -8,7 +8,7 @@ import gfortin.life.dstl.util.UuidUtil;
  * Created by guillaume on 30/07/17.
  */
 
-public class ItemProperty {
+public class Property {
     public final static String ID_FIELD_NAME = "id";
 
     @DatabaseField(generatedId = true)

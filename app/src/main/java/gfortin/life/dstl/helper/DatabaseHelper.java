@@ -18,7 +18,7 @@ import gfortin.life.dstl.model.CharacterItemJunction;
 import gfortin.life.dstl.model.Game;
 import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.model.ItemItemJunction;
-import gfortin.life.dstl.model.ItemProperty;
+import gfortin.life.dstl.model.Property;
 import gfortin.life.dstl.model.ItemPropertyJunction;
 import gfortin.life.dstl.model.Location;
 import gfortin.life.dstl.model.Type;
@@ -28,7 +28,7 @@ import gfortin.life.dstl.util.PopulateDb;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "dstl.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 1;
     private static DatabaseHelper helper = null;
     private static boolean loadDatabaseFromCacheFile = false;
     private Context context;
@@ -37,7 +37,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private Dao<CharacterItemJunction, Integer> characterItemDao = null;
     private Dao<Game, Integer> gameDao = null;
     private Dao<Item, Integer> itemDao = null;
-    private Dao<ItemProperty, Integer> itemPropertyDao = null;
+    private Dao<Property, Integer> itemPropertyDao = null;
     private Dao<Location, Integer> locationDao = null;
     private Dao<Type, Integer> typeDao = null;
     private Dao<ItemItemJunction, Integer> itemTrophyDao = null;
@@ -123,10 +123,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return itemDao;
     }
 
-    /*ItemProperty*/
-    public Dao<ItemProperty, Integer> getItemPropertyDao() throws SQLException {
+    /*Property*/
+    public Dao<Property, Integer> getItemPropertyDao() throws SQLException {
         if (itemPropertyDao == null)
-            itemPropertyDao = getDao(ItemProperty.class);
+            itemPropertyDao = getDao(Property.class);
         return itemPropertyDao;
     }
 
@@ -172,7 +172,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try{
             QueryBuilder<Item, Integer> itemQb = getItemDao().queryBuilder();
             QueryBuilder<ItemPropertyJunction, Integer> itemPropertyJunctionQb = getItemPropertyJonctionDao().queryBuilder();
-            QueryBuilder<ItemProperty, Integer> itemPropertyQb = getItemPropertyDao().queryBuilder();
+            QueryBuilder<Property, Integer> itemPropertyQb = getItemPropertyDao().queryBuilder();
 
             itemQb.join(itemPropertyJunctionQb).where().e
 
