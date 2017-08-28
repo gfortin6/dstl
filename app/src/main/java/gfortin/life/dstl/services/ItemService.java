@@ -9,9 +9,9 @@ import java.util.List;
 
 import gfortin.life.dstl.helper.DatabaseHelper;
 import gfortin.life.dstl.model.Item;
-import gfortin.life.dstl.model.Property;
-import gfortin.life.dstl.model.ItemPropertyJunction;
 import gfortin.life.dstl.model.ItemItemJunction;
+import gfortin.life.dstl.model.ItemProperty;
+import gfortin.life.dstl.model.ItemPropertyJunction;
 
 /**
  * Created by guillaume on 20/08/17.
@@ -19,7 +19,7 @@ import gfortin.life.dstl.model.ItemItemJunction;
 
 public class ItemService {
 
-    public static List<Property> getItemPropertyForItem(Item item, DatabaseHelper dbHelper) throws SQLException {
+    public static List<ItemProperty> getItemPropertyForItem(Item item, DatabaseHelper dbHelper) throws SQLException {
         QueryBuilder<ItemPropertyJunction, Integer> propertyItemQb = dbHelper.getItemPropertyJonctionDao().queryBuilder();
         // just select the post-id field
         propertyItemQb.selectColumns(ItemPropertyJunction.ITEM_PROPERTY_ID_FIELD_NAME);
@@ -27,10 +27,10 @@ public class ItemService {
         // you could also just pass in user1 here
         propertyItemQb.where().eq(ItemPropertyJunction.ITEM_ID_FIELD_NAME, userSelectArg);
         // build our outer query for Post objects
-        QueryBuilder<Property, Integer> itemPropertyQb = dbHelper.getItemPropertyDao().queryBuilder();
+        QueryBuilder<ItemProperty, Integer> itemPropertyQb = dbHelper.getItemPropertyDao().queryBuilder();
         // where the id matches in the post-id from the inner query
         itemPropertyQb.where().in(Item.ID_FIELD_NAME, propertyItemQb);
-        PreparedQuery<Property> itemPropertyForItemQuery = itemPropertyQb.prepare();
+        PreparedQuery<ItemProperty> itemPropertyForItemQuery = itemPropertyQb.prepare();
         itemPropertyForItemQuery.setArgumentHolderValue(0, item);
         return dbHelper.getItemPropertyDao().query(itemPropertyForItemQuery);
     }

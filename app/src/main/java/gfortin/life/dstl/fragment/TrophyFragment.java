@@ -25,7 +25,7 @@ import gfortin.life.dstl.adapter.ItemRecyclerViewAdapter;
 import gfortin.life.dstl.constants.TypeConstant;
 import gfortin.life.dstl.helper.DatabaseHelper;
 import gfortin.life.dstl.model.Item;
-import gfortin.life.dstl.model.Property;
+import gfortin.life.dstl.model.ItemProperty;
 import gfortin.life.dstl.services.ItemService;
 
 
@@ -86,8 +86,8 @@ public class TrophyFragment extends Fragment {
 
     private void populateFields(View view) throws SQLException {
 
-        List<Property> itemProperties = ItemService.getItemPropertyForItem(trophy, dbHelper);
-        for (Property property : itemProperties) {
+        List<ItemProperty> itemProperties = ItemService.getItemPropertyForItem(trophy, dbHelper);
+        for (ItemProperty property : itemProperties) {
             if (property.getKey().equals(TypeConstant.TROPHY_LVL)) {
                 ImageView image = (ImageView) view.findViewById(R.id.trophy_img);
                 image.setImageResource(getResources().getIdentifier(property.getValue().toString(), "drawable", getActivity().getPackageName()));

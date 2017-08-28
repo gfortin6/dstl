@@ -221,4 +221,116 @@ public class PopulateDb {
         }
     }
 
+    //id|name|game|type|ngHealth|ngSouls|ng1Health|ng1Souls|ng6Health|ng6Souls
+  /*  public static void populateCharacters(DatabaseHelper dbHelper){
+
+        try {
+            InputStream input = dbHelper.getContext().getApplicationContext()
+                    .getAssets().open("characters.txt");
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(input));
+            String line;
+            while ((line = in.readLine()) != null) {
+                StringTokenizer stTok = new StringTokenizer(line, "|");
+
+                int id = Integer.parseInt(stTok.nextToken());
+                String name = stTok.nextToken();
+                int gameId = Integer.parseInt(stTok.nextToken());
+                int typeId = Integer.parseInt(stTok.nextToken());
+                String ngHealth = stTok.nextToken();
+                String ngSouls = stTok.nextToken();
+                String ng1Health = stTok.nextToken();
+                String ng1Souls = stTok.nextToken();
+                String ng6Health = stTok.nextToken();
+                String ng6Souls = stTok.nextToken();
+
+                Character character = new Character();
+                character.setId(id);
+                character.setName(name);
+                character.setGame(dbHelper.getGameDao().queryForId(gameId));
+                character.setType(dbHelper.getTypeDao().queryForId(typeId));
+                dbHelper.getCharacterDao().create(character);
+
+                if(ngHealth.equals("null")){
+                    Property property = new Property();
+                    property.setKey("ngHealth");
+                    property.setValue(ngHealth);
+                    dbHelper.getItemPropertyDao().create(property);
+
+                    CharacterPropertyJunction characterPropertyJunction = new CharacterPropertyJunction();
+                    characterPropertyJunction.setCharacter(character);
+                    characterPropertyJunction.setProperty(property);
+                    dbHelper.getCharacterPropertyJunctionDao().create(characterPropertyJunction);
+                }
+
+                if(ngSouls.equals("null")){
+                    Property property = new Property();
+                    property.setKey("ngSouls");
+                    property.setValue(ngSouls);
+                    dbHelper.getItemPropertyDao().create(property);
+
+                    CharacterPropertyJunction characterPropertyJunction = new CharacterPropertyJunction();
+                    characterPropertyJunction.setCharacter(character);
+                    characterPropertyJunction.setProperty(property);
+                    dbHelper.getCharacterPropertyJunctionDao().create(characterPropertyJunction);
+                }
+
+                if(ng1Health.equals("null")){
+                    Property property = new Property();
+                    property.setKey("ng1Health");
+                    property.setValue(ng1Health);
+                    dbHelper.getItemPropertyDao().create(property);
+
+                    CharacterPropertyJunction characterPropertyJunction = new CharacterPropertyJunction();
+                    characterPropertyJunction.setCharacter(character);
+                    characterPropertyJunction.setProperty(property);
+                    dbHelper.getCharacterPropertyJunctionDao().create(characterPropertyJunction);
+                }
+
+                if(ng1Souls.equals("null")){
+                    Property property = new Property();
+                    property.setKey("ng1Souls");
+                    property.setValue(ng1Souls);
+                    dbHelper.getItemPropertyDao().create(property);
+
+                    CharacterPropertyJunction characterPropertyJunction = new CharacterPropertyJunction();
+                    characterPropertyJunction.setCharacter(character);
+                    characterPropertyJunction.setProperty(property);
+                    dbHelper.getCharacterPropertyJunctionDao().create(characterPropertyJunction);
+                }
+
+                if(ng6Health.equals("null")){
+                    Property property = new Property();
+                    property.setKey("ng6Health");
+                    property.setValue(ng6Health);
+                    dbHelper.getItemPropertyDao().create(property);
+
+                    CharacterPropertyJunction characterPropertyJunction = new CharacterPropertyJunction();
+                    characterPropertyJunction.setCharacter(character);
+                    characterPropertyJunction.setProperty(property);
+                    dbHelper.getCharacterPropertyJunctionDao().create(characterPropertyJunction);
+                }
+
+                if(ng6Souls.equals("null")){
+                    Property property = new Property();
+                    property.setKey("ng6Souls");
+                    property.setValue(ng6Souls);
+                    dbHelper.getItemPropertyDao().create(property);
+
+                    CharacterPropertyJunction characterPropertyJunction = new CharacterPropertyJunction();
+                    characterPropertyJunction.setCharacter(character);
+                    characterPropertyJunction.setProperty(property);
+                    dbHelper.getCharacterPropertyJunctionDao().create(characterPropertyJunction);
+                }
+
+            }
+            in.close();
+
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException(e);
+        }
+
+    }*/
 }

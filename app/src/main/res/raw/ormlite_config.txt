@@ -1,5 +1,5 @@
 #
-# generated on 2017/08/28 12:14:55
+# generated on 2017/08/28 01:07:54
 #
 # --table-start--
 dataClass=gfortin.life.dstl.model.Game
@@ -182,8 +182,8 @@ maxForeignAutoRefreshLevel=2
 # --table-end--
 #################################
 # --table-start--
-dataClass=gfortin.life.dstl.model.Property
-tableName=property
+dataClass=gfortin.life.dstl.model.ItemProperty
+tableName=itemproperty
 # --table-fields-start--
 # --field-start--
 fieldName=id
@@ -213,7 +213,8 @@ foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2
 # --field-end--
 # --field-start--
-fieldName=property
+fieldName=itemProperty
+columnName=item_property_id
 foreign=true
 foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2

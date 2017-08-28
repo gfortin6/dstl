@@ -8,17 +8,18 @@ import java.sql.SQLException;
 
 import gfortin.life.dstl.model.Character;
 import gfortin.life.dstl.model.CharacterItemJunction;
+import gfortin.life.dstl.model.CharacterPropertyJunction;
 import gfortin.life.dstl.model.Game;
 import gfortin.life.dstl.model.Item;
+import gfortin.life.dstl.model.ItemItemJunction;
 import gfortin.life.dstl.model.ItemProperty;
 import gfortin.life.dstl.model.ItemPropertyJunction;
-import gfortin.life.dstl.model.ItemItemJunction;
 import gfortin.life.dstl.model.Location;
 import gfortin.life.dstl.model.Type;
 
 public class DatabaseConfigUtil extends OrmLiteConfigUtil {
 
-    private static Class<?>[] modelClasses = new Class[] {
+    private static Class<?>[] modelClasses = new Class[]{
             Game.class,
             Type.class,
             Item.class,
@@ -28,6 +29,8 @@ public class DatabaseConfigUtil extends OrmLiteConfigUtil {
             CharacterItemJunction.class,
             ItemProperty.class,
             ItemPropertyJunction.class,
+            CharacterPropertyJunction.class,
+
 
     };
 
