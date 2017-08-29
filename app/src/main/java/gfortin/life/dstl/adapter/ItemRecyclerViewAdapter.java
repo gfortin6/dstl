@@ -17,8 +17,10 @@ import gfortin.life.dstl.fragment.SorceryFragment;
 import gfortin.life.dstl.fragment.TrophyFragment;
 import gfortin.life.dstl.holder.ViewHolder;
 import gfortin.life.dstl.model.Item;
+import gfortin.life.dstl.model.Property;
 import gfortin.life.dstl.util.FragmentUtil;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -54,7 +56,22 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mItemNameView.setText( context.getResources().getIdentifier(mValues.get(position).getName(),"string",context.getPackageName()));
-        Integer imgResource = context.getResources().getIdentifier(mValues.get(position).getName()+"_small","drawable",context.getPackageName());
+        Integer imgResource = 0;
+
+        if(mValues.get(position).getType().getId() == TypeConstant.Trophy){
+            Iterator<Property> iter = mValues.get(position).getProperties().iterator();
+            while(iter.hasNext()){
+                Property property = iter.next();
+                if(property.getKey().equals(TypeConstant.TROPHY_LVL)){
+                    imgResource = context.getResources().getIdentifier(property.getValue()+"","drawable",context.getPackageName());
+                    break;
+                }
+            }
+
+        }else{
+            imgResource = context.getResources().getIdentifier(mValues.get(position).getName()+"_small","drawable",context.getPackageName());
+        }
+
         holder.mItemImageView.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), imgResource));
                 //setText(mValues.get(position).getDescription());
 
