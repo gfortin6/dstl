@@ -27,6 +27,7 @@ import gfortin.life.dstl.helper.DatabaseHelper;
 import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.model.Property;
 import gfortin.life.dstl.services.ItemService;
+import gfortin.life.dstl.util.FragmentUtil;
 
 
 /**
@@ -128,35 +129,12 @@ public class TrophyFragment extends Fragment {
         }
         if (itemsToDiscover.size() > 0) {
             listToDiscover.setAdapter(new ItemRecyclerViewAdapter(itemsToDiscover, mListener, getContext(), getActivity().getSupportFragmentManager(), getResources().getBoolean(R.bool.twoPaneMode)));
-        } else {
-            view.findViewById(R.id.tvToDiscover).setVisibility(View.GONE);
-            view.findViewById(R.id.viewToDiscover).setVisibility(View.GONE);
-            listToDiscover.setVisibility(View.GONE);
+            view.findViewById(R.id.tvEmptyListToDiscover).setVisibility(View.GONE);
         }
         if (itemsAcquired.size() > 0) {
             listAcquired.setAdapter(new ItemRecyclerViewAdapter(itemsAcquired, mListener, getContext(), getActivity().getSupportFragmentManager(), getResources().getBoolean(R.bool.twoPaneMode)));
-        } else {
-            view.findViewById(R.id.tvAcquired).setVisibility(View.GONE);
-            view.findViewById(R.id.viewAcquired).setVisibility(View.GONE);
-            listToDiscover.setVisibility(View.GONE);
+            view.findViewById(R.id.tvEmptyListAcquired).setVisibility(View.GONE);
         }
-
-
-       /* TextView tv = new TextView(getContext());
-        tv.setText(getResources().getIdentifier(item.getName(), "string", getContext().getPackageName()));
-        tv.setTextSize(25);
-        tv.setPadding(0, 25, 0, 25);
-
-        tv.setCompoundDrawablesWithIntrinsicBounds(getResources().getIdentifier(item.getName() + "_small", "drawable", getContext().getPackageName()), 0, 0, 0);
-        tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentUtil.createNewFragment(new SorceryFragment(), getActivity().getSupportFragmentManager(), "itemId", item.getId(), getResources().getBoolean(R.bool.twoPaneMode));
-            }
-        });
-        trophiesListItem.addView(tv);
-
-        trophiesListItem.addView(ViewUtil.createDivider(getContext(), R.color.orange));*/
 
     }
 
@@ -184,6 +162,8 @@ public class TrophyFragment extends Fragment {
                                         dbHelper.getItemDao().createOrUpdate(item);
                                     }
                                 }
+                                FragmentUtil.refreshFragment(getResources().getBoolean(R.bool.twoPaneMode), getActivity().getSupportFragmentManager());
+
                             } catch (Exception e) {
                                 throw new RuntimeException();
                             }
@@ -205,6 +185,7 @@ public class TrophyFragment extends Fragment {
                                     item.setAcquired(false);
                                     dbHelper.getItemDao().createOrUpdate(item);
                                 }
+                                FragmentUtil.refreshFragment(getResources().getBoolean(R.bool.twoPaneMode), getActivity().getSupportFragmentManager());
                             } catch (Exception e) {
                                 throw new RuntimeException();
                             }

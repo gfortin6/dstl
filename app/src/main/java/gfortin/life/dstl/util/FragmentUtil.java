@@ -22,6 +22,15 @@ public class FragmentUtil {
         fragmentTransaction.commit();
     }
 
+    public static void refreshFragment(boolean isTwoPannels, FragmentManager fragmentManager) {
+        int fragmentId = getViewId(isTwoPannels);
+        Fragment currentFragment = fragmentManager.findFragmentById(fragmentId);
+        FragmentTransaction fragTransaction = fragmentManager.beginTransaction();
+        fragTransaction.detach(currentFragment);
+        fragTransaction.attach(currentFragment);
+        fragTransaction.commit();
+    }
+
 
     private static int getViewId(boolean isTwoPanels) {
         int viewId = 0;

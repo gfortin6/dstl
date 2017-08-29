@@ -90,8 +90,14 @@ public class ItemFragment extends Fragment {
                     break;
             }
 
-            listToDiscover.setAdapter(new ItemRecyclerViewAdapter(itemsToDiscover, mListener, getContext(), getActivity().getSupportFragmentManager(), getResources().getBoolean(R.bool.twoPaneMode)));
-            listAcquired.setAdapter(new ItemRecyclerViewAdapter(itemsAcquired, mListener, getContext(), getActivity().getSupportFragmentManager(), getResources().getBoolean(R.bool.twoPaneMode)));
+            if (itemsToDiscover.size() > 0) {
+                listToDiscover.setAdapter(new ItemRecyclerViewAdapter(itemsToDiscover, mListener, getContext(), getActivity().getSupportFragmentManager(), getResources().getBoolean(R.bool.twoPaneMode)));
+                view.findViewById(R.id.tvEmptyListToDiscover).setVisibility(View.GONE);
+            }
+            if (itemsAcquired.size() > 0) {
+                listAcquired.setAdapter(new ItemRecyclerViewAdapter(itemsAcquired, mListener, getContext(), getActivity().getSupportFragmentManager(), getResources().getBoolean(R.bool.twoPaneMode)));
+                view.findViewById(R.id.tvEmptyListAcquired).setVisibility(View.GONE);
+            }
         } catch (Exception e) {
             throw new RuntimeException();
         }
