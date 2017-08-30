@@ -20,6 +20,7 @@ import java.util.List;
 import gfortin.life.dstl.R;
 import gfortin.life.dstl.constants.TypeConstant;
 import gfortin.life.dstl.helper.DatabaseHelper;
+import gfortin.life.dstl.model.Character;
 import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.model.Property;
 import gfortin.life.dstl.services.ItemService;
@@ -119,6 +120,8 @@ public class SorceryFragment extends Fragment {
         TextView lvlInt = (TextView) view.findViewById(R.id.sorcery_lvl_int);
         TextView spellUses = (TextView) view.findViewById(R.id.sorcery_spell_uses);
         TextView slotsUsed = (TextView) view.findViewById(R.id.sorcery_slots_used);
+
+        List<Character> characterList = ItemService.getCharacterForItem(item,dbHelper);
 
 
         /*List<Property> itemProperties = ItemService.getPropertyOfItem(item, dbHelper);*/

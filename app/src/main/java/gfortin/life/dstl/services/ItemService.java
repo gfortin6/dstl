@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 import gfortin.life.dstl.helper.DatabaseHelper;
+import gfortin.life.dstl.model.Character;
+import gfortin.life.dstl.model.CharacterItemJunction;
 import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.model.ItemItemJunction;
 import gfortin.life.dstl.model.Property;
@@ -48,6 +50,22 @@ public class ItemService {
         PreparedQuery<Item> query = queryBuilder.prepare();
         query.setArgumentHolderValue(0, trophy);
         return dbHelper.getItemDao().query(query);
+    }
+
+    public static List<Character> getCharacterForItem(Item item, DatabaseHelper dbHelper ) throws SQLException {
+        QueryBuilder<CharacterItemJunction, Integer> characterItemQb = dbHelper.getCharacterItemDao().queryBuilder();
+        // just select the post-id field
+        characterItemQb.selectColumns(CharacterItemJunction.CHARACTER_ID_FIELD_NAME);
+        SelectArg userSelectArg = new SelectArg();
+        // you could also just pass in user1 here
+        characterItemQb.where().eq(CharacterItemJunction.ITEM_ID_FIELD_NAME, userSelectArg);
+        // build our outer query for Post objects
+        QueryBuilder<Character, Integer> characterQb = dbHelper.getCharacterDao().queryBuilder();
+        // where the id matches in the post-id from the inner query
+        characterQb.where().in(Character.ID_FIELD_NAME, characterItemQb);
+        PreparedQuery<Character> characterForItemQuery = characterQb.prepare();
+        characterForItemQuery.setArgumentHolderValue(0, item);
+        return dbHelper.getCharacterDao().query(characterForItemQuery);
     }
 
 }

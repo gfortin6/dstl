@@ -1,12 +1,9 @@
 package gfortin.life.dstl.model;
 
-import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 
 import java.util.Collection;
-
-import gfortin.life.dstl.util.UuidUtil;
 
 /**
  * Created by guillaume on 30/07/17.
@@ -14,20 +11,21 @@ import gfortin.life.dstl.util.UuidUtil;
 //id|name|game|type|ngHealth|ngSouls|ng1Health|ng1Souls|ng6Health|ng6Souls
 
 public class Character {
+    public final static String ID_FIELD_NAME = "id";
+    @ForeignCollectionField
+    Collection<Property> properties;
     @DatabaseField(id = true)
     private int id;
     @DatabaseField
     private String name;
     @DatabaseField
     private String description;
-    @DatabaseField(foreign=true, foreignAutoRefresh=true)
+    @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private Game game;
-    @DatabaseField(foreign=true, foreignAutoRefresh=true)
+    @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private Type type;
-    @DatabaseField(foreign=true, foreignAutoRefresh=true)
+    @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private Type subtype;
-    @ForeignCollectionField
-    Collection<Property> properties;
 
     public Character() {
     }

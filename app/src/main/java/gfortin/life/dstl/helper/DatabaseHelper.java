@@ -27,7 +27,7 @@ import gfortin.life.dstl.util.PopulateDb;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "dstl.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static DatabaseHelper helper = null;
     private static boolean loadDatabaseFromCacheFile = false;
     private Context context;
@@ -70,7 +70,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             PopulateDb.populateTrophies(this);
             PopulateDb.populateSorceries(this);
             PopulateDb.populateCharacters(this);
-
+            PopulateDb.populateCharacterItemJunction(this);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

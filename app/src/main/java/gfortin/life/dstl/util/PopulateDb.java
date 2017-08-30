@@ -14,6 +14,7 @@ import java.util.StringTokenizer;
 import gfortin.life.dstl.constants.TypeConstant;
 import gfortin.life.dstl.helper.DatabaseHelper;
 import gfortin.life.dstl.model.Character;
+import gfortin.life.dstl.model.CharacterItemJunction;
 import gfortin.life.dstl.model.Game;
 import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.model.ItemItemJunction;
@@ -308,6 +309,35 @@ public class PopulateDb {
 
             }
             in.close();
+
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    //id_item|id_character
+    public static void populateCharacterItemJunction(DatabaseHelper dbHelper){
+        try {
+            InputStream input = dbHelper.getContext().getApplicationContext()
+                    .getAssets().open("characterItemJunction.txt");
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(input));
+            String line;
+            while ((line = in.readLine()) != null) {
+                StringTokenizer stTok = new StringTokenizer(line, "|");
+
+                int itemId = Integer.parseInt(stTok.nextToken());
+                int characterId = Integer.parseInt(stTok.nextToken());
+
+                CharacterItemJunction characterItemJunction = new CharacterItemJunction();
+                characterItemJunction.setCharacter(dbHelper.getCharacterDao().queryForId(characterId));
+                characterItemJunction.setItem(dbHelper.getItemDao().queryForId(itemId));
+                dbHelper.getCharacterItemDao().create(characterItemJunction);
+
+            } in.close();
 
 
         } catch (Exception e) {
