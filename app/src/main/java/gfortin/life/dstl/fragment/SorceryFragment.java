@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import gfortin.life.dstl.R;
+import gfortin.life.dstl.constants.TypeConstant;
 import gfortin.life.dstl.helper.DatabaseHelper;
 import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.model.Property;
@@ -147,6 +148,8 @@ public class SorceryFragment extends Fragment {
                 item.setAcquired(isChecked);
                 try {
                     dbHelper.getItemDao().createOrUpdate(item);
+                    long nbToDiscover = dbHelper.getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Spells).and().eq("subType_id", TypeConstant.Sorceries).and().eq("is_acquired", false).countOf();
+                    int iii = 0;
                 } catch (Exception e) {
                     throw new RuntimeException();
                 }

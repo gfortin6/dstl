@@ -61,32 +61,32 @@ public class ItemFragment extends Fragment {
             List<Item> itemsAcquired = null;
             switch (getArguments().getInt("itemId")) {
                 case R.id.nav_sorceries:
-                    itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("subType_id", TypeConstant.Sorceries).and().eq("isAcquired", false).query();
-                    itemsAcquired = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("subType_id", TypeConstant.Sorceries).and().eq("isAcquired", true).query();
+                    itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("subType_id", TypeConstant.Sorceries).and().eq(Item.IS_ACQUIRED_FIELD_NAME, false).query();
+                    itemsAcquired = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("subType_id", TypeConstant.Sorceries).and().eq(Item.IS_ACQUIRED_FIELD_NAME, true).query();
                     break;
                 case R.id.nav_miracles:
-                    itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("subType_id", TypeConstant.Miracles).and().eq("isAcquired", false).query();
-                    itemsAcquired = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("subType_id", TypeConstant.Miracles).and().eq("isAcquired", true).query();
+                    itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("subType_id", TypeConstant.Miracles).and().eq(Item.IS_ACQUIRED_FIELD_NAME, false).query();
+                    itemsAcquired = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("subType_id", TypeConstant.Miracles).and().eq(Item.IS_ACQUIRED_FIELD_NAME, true).query();
                     break;
                 case R.id.nav_pyromancies:
-                    itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("subType_id", TypeConstant.Pyromancies).and().eq("isAcquired", false).query();
-                    itemsAcquired = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("subType_id", TypeConstant.Pyromancies).and().eq("isAcquired", true).query();
+                    itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("subType_id", TypeConstant.Pyromancies).and().eq(Item.IS_ACQUIRED_FIELD_NAME, false).query();
+                    itemsAcquired = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("subType_id", TypeConstant.Pyromancies).and().eq(Item.IS_ACQUIRED_FIELD_NAME, true).query();
                     break;
                 case R.id.nav_trophies:
-                    itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Trophy).and().eq("isAcquired", false).query();
-                    itemsAcquired = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Trophy).and().eq("isAcquired", true).query();
+                    itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Trophy).and().eq(Item.IS_ACQUIRED_FIELD_NAME, false).query();
+                    itemsAcquired = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Trophy).and().eq(Item.IS_ACQUIRED_FIELD_NAME, true).query();
                     break;
                 case R.id.nav_armors:
-                    itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Armors).and().eq("isAcquired", false).query();
-                    itemsAcquired = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Armors).and().eq("isAcquired", true).query();
+                    itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Armors).and().eq(Item.IS_ACQUIRED_FIELD_NAME, false).query();
+                    itemsAcquired = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Armors).and().eq(Item.IS_ACQUIRED_FIELD_NAME, true).query();
                     break;
                 case R.id.nav_weapons:
-                    itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Weapons).and().eq("isAcquired", false).query();
-                    itemsAcquired = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Weapons).and().eq("isAcquired", true).query();
+                    itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Weapons).and().eq(Item.IS_ACQUIRED_FIELD_NAME, false).query();
+                    itemsAcquired = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Weapons).and().eq(Item.IS_ACQUIRED_FIELD_NAME, true).query();
                     break;
                 case R.id.nav_rings:
-                    itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Rings).and().eq("isAcquired", false).query();
-                    itemsAcquired = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Rings).and().eq("isAcquired", true).query();
+                    itemsToDiscover = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Rings).and().eq(Item.IS_ACQUIRED_FIELD_NAME, false).query();
+                    itemsAcquired = DatabaseHelper.getInstance(getContext()).getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Rings).and().eq(Item.IS_ACQUIRED_FIELD_NAME, true).query();
                     break;
             }
 

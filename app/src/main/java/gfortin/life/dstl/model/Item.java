@@ -12,6 +12,7 @@ import java.util.Collection;
 
 public class Item {
     public final static String ID_FIELD_NAME = "id";
+    public final static String IS_ACQUIRED_FIELD_NAME = "is_acquired";
 
 
     @DatabaseField(id = true)
@@ -26,7 +27,7 @@ public class Item {
     private Type subtype;
     @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "attack_type_id")
     private Type attackType;
-    @DatabaseField
+    @DatabaseField(columnName = "is_acquired")
     private boolean isAcquired;
     @DatabaseField(foreign=true, foreignAutoRefresh=true)
     private Game game;
