@@ -15,9 +15,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.List;
 
 import gfortin.life.dstl.R;
+import gfortin.life.dstl.constants.TrophyConstant;
 import gfortin.life.dstl.constants.TypeConstant;
 import gfortin.life.dstl.helper.DatabaseHelper;
 import gfortin.life.dstl.model.Character;
@@ -152,6 +154,17 @@ public class SorceryFragment extends Fragment {
                 try {
                     dbHelper.getItemDao().createOrUpdate(item);
                     long nbToDiscover = dbHelper.getItemDao().queryBuilder().where().eq("type_id", TypeConstant.Spells).and().eq("subType_id", TypeConstant.Sorceries).and().eq("is_acquired", false).countOf();
+                    if(nbToDiscover == 0){
+                        List<Item> trophies = ItemService.getTrophyForItem(item,dbHelper);
+                        Iterator<Item> itemIterator = trophies.iterator();
+                        while (itemIterator.hasNext()){
+                            Item trophy = itemIterator.next();
+                            if(trophy.getName().equals(TrophyConstant.WISDOM_OF_A_SAGE)){
+                                trophy.setAcquired(true);
+                                dbHelper.getItemDao().update(trophy);
+                            }
+                        }
+                    }
                     int iii = 0;
                 } catch (Exception e) {
                     throw new RuntimeException();
