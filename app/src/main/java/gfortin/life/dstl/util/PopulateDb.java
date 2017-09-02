@@ -318,7 +318,7 @@ public class PopulateDb {
 
     }
 
-    //id_item|id_character
+    //id_character|id_item
     public static void populateCharacterItemJunction(DatabaseHelper dbHelper){
         try {
             InputStream input = dbHelper.getContext().getApplicationContext()
@@ -329,12 +329,15 @@ public class PopulateDb {
             while ((line = in.readLine()) != null) {
                 StringTokenizer stTok = new StringTokenizer(line, "|");
 
-                int itemId = Integer.parseInt(stTok.nextToken());
                 int characterId = Integer.parseInt(stTok.nextToken());
+                int itemId = Integer.parseInt(stTok.nextToken());
+                int cost = Integer.parseInt(stTok.nextToken());
+
 
                 CharacterItemJunction characterItemJunction = new CharacterItemJunction();
                 characterItemJunction.setCharacter(dbHelper.getCharacterDao().queryForId(characterId));
                 characterItemJunction.setItem(dbHelper.getItemDao().queryForId(itemId));
+                characterItemJunction.setCost(cost);
                 dbHelper.getCharacterItemDao().create(characterItemJunction);
 
             } in.close();

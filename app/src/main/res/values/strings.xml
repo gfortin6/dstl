@@ -40,5 +40,13 @@
     <string name="confirmAcquiredTrophy">Are you sure you have acquired the %1$s trophy?</string>
     <string name="confirmUncheckTrophy">Are you sure you want to uncheck the %1$s trophy? This will uncheck all the %2$s linked to this trophy.</string>
     <string name="emptyList">This list is empty</string>
+    <string name="where_to_find">Where to find</string>
+    <string name="sellerName">Seller name</string>
+    <string name="griggs_of_vinheim">Griggs of Vinheim</string>
+    <string name="taurus_demon">Taurus demon</string>
+    <string name="asylum_demon">Asylum demon</string>
+    <string name="big_hat_logan">Big Hat Logan</string>
+    <string name="blacksmith_rickert_of_vinheim">Rickert of Vinheim</string>
+    <string name="cost">Cost</string>
 
 </resources>

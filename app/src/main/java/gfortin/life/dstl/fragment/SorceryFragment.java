@@ -19,6 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import gfortin.life.dstl.R;
+import gfortin.life.dstl.bean.CharacterItemBean;
 import gfortin.life.dstl.constants.TrophyConstant;
 import gfortin.life.dstl.constants.TypeConstant;
 import gfortin.life.dstl.helper.DatabaseHelper;
@@ -94,7 +95,8 @@ public class SorceryFragment extends Fragment {
 
     private void populateFields(Item item, View view) throws SQLException {
         TextView itemName = (TextView) view.findViewById(R.id.sorcery_name);
-        itemName.setText(getResources().getIdentifier(item.getName(), "string", getActivity().getPackageName()));
+
+        itemName.setText(getResources().getIdentifier(item.getName(), "string", getActivity().getPackageName()));/**/
 
         TextView itemDescription = (TextView) view.findViewById(R.id.sorcery_desc);
         itemDescription.setText(getResources().getIdentifier(item.getDescription(), "string", getActivity().getPackageName()));
@@ -123,10 +125,11 @@ public class SorceryFragment extends Fragment {
         TextView spellUses = (TextView) view.findViewById(R.id.sorcery_spell_uses);
         TextView slotsUsed = (TextView) view.findViewById(R.id.sorcery_slots_used);
 
-        List<Character> characterList = ItemService.getCharacterForItem(item,dbHelper);
+        List<CharacterItemBean> characterItemBeanList = ItemService.getCharacterForItem(item,dbHelper);
+        showListCharacter(characterItemBeanList, view);
 
 
-        /*List<Property> itemProperties = ItemService.getPropertyOfItem(item, dbHelper);*/
+          /*List<Property> itemProperties = ItemService.getPropertyOfItem(item, dbHelper);*/
         for (Property property : item.getProperties()) {
             switch (property.getKey()) {
                 case "nbUses":
@@ -165,7 +168,6 @@ public class SorceryFragment extends Fragment {
                             }
                         }
                     }
-                    int iii = 0;
                 } catch (Exception e) {
                     throw new RuntimeException();
                 }
@@ -190,5 +192,52 @@ public class SorceryFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private static void showListCharacter(List<CharacterItemBean> characterItemBeanList, View view){
+        if(characterItemBeanList.size()>0) {
+            LinearLayout sorcery_main_layout = (LinearLayout) view.findViewById(R.id.sorcery_main_layout);
+            TextView tvTitle = new TextView(view.getContext());
+            tvTitle.setText(view.getResources().getString(R.string.where_to_find));
+            tvTitle.setPadding(0,10,0,10);
+            tvTitle.setGravity(View.TEXT_ALIGNMENT_CENTER);
+            tvTitle.setTextSize(25);
+            sorcery_main_layout.addView(tvTitle);
+
+            LinearLayout.LayoutParams param1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 2);
+            LinearLayout.LayoutParams param2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT, 1);
+            LinearLayout.LayoutParams param3 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT, 1);
+
+            LinearLayout llCharacterItemBeanTitle = new LinearLayout(view.getContext());
+            llCharacterItemBeanTitle.setLayoutParams(param1);
+            sorcery_main_layout.addView(llCharacterItemBeanTitle);
+
+            TextView tvSellerNameTitle = new TextView(view.getContext());
+            tvSellerNameTitle.setText(view.getResources().getString(R.string.sellerName));
+            tvSellerNameTitle.setLayoutParams(param2);
+            llCharacterItemBeanTitle.addView(tvSellerNameTitle);
+
+            TextView tvCostTitle = new TextView(view.getContext());
+            tvCostTitle.setText(view.getResources().getString(R.string.cost));
+            tvCostTitle.setLayoutParams(param3);
+            llCharacterItemBeanTitle.addView(tvCostTitle);
+
+            for (CharacterItemBean characterItemBean : characterItemBeanList) {
+                LinearLayout llCharacterItemBean = new LinearLayout(view.getContext());
+                llCharacterItemBean.setLayoutParams(param1);
+                sorcery_main_layout.addView(llCharacterItemBean);
+
+                TextView tvSellerName = new TextView(view.getContext());
+                tvSellerName.setText(view.getResources().getIdentifier(characterItemBean.getCharacter().getName(),"string", view.getContext().getPackageName()));
+                tvSellerName.setLayoutParams(param2);
+                llCharacterItemBean.addView(tvSellerName);
+
+                TextView tvCost = new TextView(view.getContext());
+                tvCost.setText(""+characterItemBean.getCost());
+                tvCost.setLayoutParams(param3);
+                llCharacterItemBean.addView(tvCost);
+            }
+        }
+
     }
 }

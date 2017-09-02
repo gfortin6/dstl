@@ -1,11 +1,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sorcery_main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     android:orientation="vertical"
-    tools:context="gfortin.life.dstl.fragment.SorceryFragment"
-    android:layout_margin="10dp">
+    tools:context="gfortin.life.dstl.fragment.SorceryFragment">
 
     <TextView
         android:id="@+id/sorcery_name"
@@ -33,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/Trophy"
-                android:maxWidth="100sp"/>
+                android:maxWidth="100sp" />
 
             <CheckBox
                 android:id="@+id/isAcquiredChk"
@@ -114,10 +115,10 @@
         android:id="@+id/sorcery_lvl_int"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:drawableStart="@drawable/intelligence"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:textSize="20sp"
-        android:drawableStart="@drawable/intelligence"/>
+        android:textSize="20sp" />
 
     <LinearLayout
         android:layout_width="match_parent"

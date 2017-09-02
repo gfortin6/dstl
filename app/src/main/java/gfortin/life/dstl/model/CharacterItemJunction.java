@@ -19,6 +19,9 @@ public class CharacterItemJunction {
     private Character character;
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private Item item;
+    @DatabaseField
+    private int cost;
+
 
     public CharacterItemJunction() {
     }
@@ -45,5 +48,13 @@ public class CharacterItemJunction {
 
     public void setItem(Item item) {
         this.item = item;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 }
