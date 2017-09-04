@@ -1,7 +1,9 @@
 package gfortin.life.dstl.activity;
 
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +17,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -42,8 +47,24 @@ public class MainActivity extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        LinearLayout llGames = (LinearLayout) findViewById(R.id.llGames);
+        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1000);
+        param.setMargins(0,10,0,10);
+
         try {
             List<Game> games = dbHelper.getGameDao().queryForAll();
+            for (final Game game:games) {
+                ImageView iv = new ImageView(getApplicationContext());
+                iv.setImageResource(getResources().getIdentifier(game.getName()+"_fc", "drawable", getPackageName()));
+                iv.setLayoutParams(param);
+                iv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(game, MainActivity.this);
+                    }
+                });
+                llGames.addView(iv);
+            }
         }catch (Exception e){
             throw new RuntimeException();
         }
@@ -93,5 +114,26 @@ public class MainActivity extends AppCompatActivity{
             }
         }*/
         return super.onOptionsItemSelected(item);
+    }
+
+    private static void startActivity(Game game, Activity activity){
+        Intent intent = null;
+        switch (game.getId()){
+            case 1: //Dark souls 1
+                intent = new Intent(activity, DarkSoul1Activity.class);
+                activity.startActivity(intent);
+                break;
+            case 2: //Dark souls 2
+                Toast.makeText(activity.getApplicationContext(), "Comming soon", Toast.LENGTH_LONG).show();
+                break;
+            case 3: //Dark souls 3
+                Toast.makeText(activity.getApplicationContext(), "Comming soon", Toast.LENGTH_LONG).show();
+                break;
+            case 4: //Bloodborne
+                Toast.makeText(activity.getApplicationContext(), "Comming soon", Toast.LENGTH_LONG).show();
+                break;
+        }
+      //  activity.startActivity(intent);
+
     }
 }

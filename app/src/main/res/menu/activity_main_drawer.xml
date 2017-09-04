@@ -33,4 +33,8 @@
         android:id="@+id/nav_rings"
         android:icon="@drawable/ic_menu_camera"
         android:title="@string/rings" />
+    <item
+        android:id="@+id/nav_change_game"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="@string/changeGame" />
 </menu>

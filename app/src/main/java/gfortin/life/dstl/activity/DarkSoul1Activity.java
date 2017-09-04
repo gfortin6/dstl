@@ -2,6 +2,7 @@ package gfortin.life.dstl.activity;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -32,11 +33,11 @@ public class DarkSoul1Activity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Context context = getApplicationContext();
 
         dbHelper = DatabaseHelper.getInstance(getApplicationContext());
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_dark_soul1);
+        setTitle(R.string.dark_souls_1);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -120,6 +121,9 @@ public class DarkSoul1Activity extends AppCompatActivity
                 break;
             case R.id.nav_trophies:
                 FragmentUtil.createNewFragment(new ItemFragment(), getSupportFragmentManager(),"itemId", item.getItemId(), getResources().getBoolean(R.bool.twoPaneMode));
+                break;
+            case R.id.nav_change_game:
+                startActivity(new Intent(DarkSoul1Activity.this, MainActivity.class));
                 break;
         }
 

@@ -50,5 +50,6 @@
     <string name="or">or</string>
     <string name="availability">Availability</string>
     <string name="starting_sorcery_for_the_Sorcerer_class">Starting sorcery for the Sorcerer class</string>
+    <string name="changeGame">Change game</string>
 
 </resources>
