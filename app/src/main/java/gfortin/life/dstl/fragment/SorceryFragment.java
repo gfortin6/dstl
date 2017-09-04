@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -25,9 +27,11 @@ import gfortin.life.dstl.constants.TypeConstant;
 import gfortin.life.dstl.helper.DatabaseHelper;
 import gfortin.life.dstl.model.Character;
 import gfortin.life.dstl.model.Item;
+import gfortin.life.dstl.model.Location;
 import gfortin.life.dstl.model.Property;
 import gfortin.life.dstl.services.ItemService;
 import gfortin.life.dstl.util.FragmentUtil;
+import gfortin.life.dstl.util.ViewUtil;
 
 
 /**
@@ -126,7 +130,8 @@ public class SorceryFragment extends Fragment {
         TextView slotsUsed = (TextView) view.findViewById(R.id.sorcery_slots_used);
 
         List<CharacterItemBean> characterItemBeanList = ItemService.getCharacterForItem(item,dbHelper);
-        showListCharacter(characterItemBeanList, view);
+        List<Location> locations = new ArrayList<>();
+        ViewUtil.showListCharacter(characterItemBeanList, view, locations);
 
 
           /*List<Property> itemProperties = ItemService.getPropertyOfItem(item, dbHelper);*/
@@ -194,50 +199,5 @@ public class SorceryFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private static void showListCharacter(List<CharacterItemBean> characterItemBeanList, View view){
-        if(characterItemBeanList.size()>0) {
-            LinearLayout sorcery_main_layout = (LinearLayout) view.findViewById(R.id.sorcery_main_layout);
-            TextView tvTitle = new TextView(view.getContext());
-            tvTitle.setText(view.getResources().getString(R.string.where_to_find));
-            tvTitle.setPadding(0,10,0,10);
-            tvTitle.setGravity(View.TEXT_ALIGNMENT_CENTER);
-            tvTitle.setTextSize(25);
-            sorcery_main_layout.addView(tvTitle);
 
-            LinearLayout.LayoutParams param1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 2);
-            LinearLayout.LayoutParams param2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT, 1);
-            LinearLayout.LayoutParams param3 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT, 1);
-
-            LinearLayout llCharacterItemBeanTitle = new LinearLayout(view.getContext());
-            llCharacterItemBeanTitle.setLayoutParams(param1);
-            sorcery_main_layout.addView(llCharacterItemBeanTitle);
-
-            TextView tvSellerNameTitle = new TextView(view.getContext());
-            tvSellerNameTitle.setText(view.getResources().getString(R.string.sellerName));
-            tvSellerNameTitle.setLayoutParams(param2);
-            llCharacterItemBeanTitle.addView(tvSellerNameTitle);
-
-            TextView tvCostTitle = new TextView(view.getContext());
-            tvCostTitle.setText(view.getResources().getString(R.string.cost));
-            tvCostTitle.setLayoutParams(param3);
-            llCharacterItemBeanTitle.addView(tvCostTitle);
-
-            for (CharacterItemBean characterItemBean : characterItemBeanList) {
-                LinearLayout llCharacterItemBean = new LinearLayout(view.getContext());
-                llCharacterItemBean.setLayoutParams(param1);
-                sorcery_main_layout.addView(llCharacterItemBean);
-
-                TextView tvSellerName = new TextView(view.getContext());
-                tvSellerName.setText(view.getResources().getIdentifier(characterItemBean.getCharacter().getName(),"string", view.getContext().getPackageName()));
-                tvSellerName.setLayoutParams(param2);
-                llCharacterItemBean.addView(tvSellerName);
-
-                TextView tvCost = new TextView(view.getContext());
-                tvCost.setText(""+characterItemBean.getCost());
-                tvCost.setLayoutParams(param3);
-                llCharacterItemBean.addView(tvCost);
-            }
-        }
-
-    }
 }

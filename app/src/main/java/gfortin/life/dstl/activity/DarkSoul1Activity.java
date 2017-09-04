@@ -16,18 +16,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import java.util.List;
-
 import gfortin.life.dstl.R;
 import gfortin.life.dstl.fragment.ItemFragment;
 import gfortin.life.dstl.fragment.SorceryFragment;
 import gfortin.life.dstl.fragment.TrophyFragment;
 import gfortin.life.dstl.helper.DatabaseHelper;
-import gfortin.life.dstl.model.Game;
 import gfortin.life.dstl.model.Item;
 import gfortin.life.dstl.util.FragmentUtil;
 
-public class MainActivity extends AppCompatActivity{
+public class DarkSoul1Activity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener, SorceryFragment.OnFragmentInteractionListener, ItemFragment.OnListFragmentInteractionListener {
 
     DatabaseHelper dbHelper;
 
@@ -42,13 +40,7 @@ public class MainActivity extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        try {
-            List<Game> games = dbHelper.getGameDao().queryForAll();
-        }catch (Exception e){
-            throw new RuntimeException();
-        }
-
-       /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,13 +48,30 @@ public class MainActivity extends AppCompatActivity{
                         .setAction("Action", null).show();
             }
         });
-*/
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0 ) {
+                getSupportFragmentManager().popBackStack();
+            }else{
+                super.onBackPressed();
+            }
+        }
     }
 
     @Override
@@ -94,4 +103,41 @@ public class MainActivity extends AppCompatActivity{
         }*/
         return super.onOptionsItemSelected(item);
     }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view Item clicks here.
+        switch (item.getItemId()) {
+            case R.id.nav_sorceries:
+                FragmentUtil.createNewFragment(new ItemFragment(), getSupportFragmentManager(),"itemId", item.getItemId(), getResources().getBoolean(R.bool.twoPaneMode));
+                break;
+            case R.id.nav_miracles:
+                break;
+            case R.id.nav_weapons:
+                break;
+            case R.id.nav_rings:
+                break;
+            case R.id.nav_trophies:
+                FragmentUtil.createNewFragment(new ItemFragment(), getSupportFragmentManager(),"itemId", item.getItemId(), getResources().getBoolean(R.bool.twoPaneMode));
+                break;
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+
+    @Override
+    public void onFragmentInteraction(Uri uri){
+        //you can leave it empty
+    }
+
+    @Override
+    public void onListFragmentInteraction(Item item){
+        //you can leave it empty
+    }
+
+
 }
